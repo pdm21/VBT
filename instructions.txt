@@ -1,0 +1,2 @@
+nvm use in the project will switch to Node.js v20.18.3 (.nvmrc file)
+enforces the version specified in package.json, v10.8.2 (.npmrc file)
