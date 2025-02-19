@@ -40,3 +40,34 @@ a {
     color-scheme: dark;
   }
 }
+
+@media (orientation: portrait) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    color: white;
+  }
+
+  .rotate-message {
+    display: block;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .app-content {
+    display: none; /* Hide app content in portrait mode */
+  }
+}
+
+@media (orientation: landscape) {
+  .rotate-message {
+    display: none; /* Hide message when in landscape */
+  }
+
+  .app-content {
+    display: block;
+  }
+}
+
