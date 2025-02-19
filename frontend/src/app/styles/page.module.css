@@ -4,12 +4,33 @@
     background-color: blue;
     display: flex;
     align-items: center;
-    justify-content: center;
+}
+
+.leftDiv, .centerDiv, .rightDiv {
+    flex: 1; 
+    display: flex;
+    align-items: center; 
+}
+
+.centerDiv {
+    justify-content: center; 
+}
+
+.rightDiv {
+    justify-content: flex-end; 
+    padding-right: 20px; 
 }
 
 .welcomeText {
     color: white;
     font-size: xx-large;
+}
+
+.logo {
+    width: 100px; 
+    height: auto; 
+    max-height: 80px; 
+    object-fit: contain; 
 }
 
 .middleDiv {

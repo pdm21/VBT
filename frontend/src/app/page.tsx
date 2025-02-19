@@ -5,7 +5,18 @@ export default function Home() {
     <main>
       {/* Welcome Header */}
       <div className={styles.welcomeHeader}>
-        <p className={styles.welcomeText}>Welcome</p>
+        {/* Empty left div for spacing */}
+        <div className={styles.leftDiv}></div>  
+
+        {/* Centered text div */}
+        <div className={styles.centerDiv}>
+          <p className={styles.welcomeText}>Welcome</p>
+        </div>
+
+        {/* Right div with logo aligned right */}
+        <div className={styles.rightDiv}>
+          <img src="/logo.png" alt="VBT Logo" className={styles.logo} />
+        </div>
       </div>
 
       {/* Middle Area */}
