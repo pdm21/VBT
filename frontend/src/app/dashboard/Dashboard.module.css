@@ -1,0 +1,28 @@
+.main {
+    border: 5px solid black;
+}
+
+.homeButtonDiv {
+    height: 5vh;
+    justify-content: center;
+    align-items: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.homeButton {
+    height: 100%;
+    width: 20%;
+    font-size: large;
+    font-weight: bolder;
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+}
+
+.liveDashboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

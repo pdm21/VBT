@@ -14,11 +14,19 @@ export default function Dashboard() {
   }
 
   return (
-    <main>
-      <div className={styles.header}>
-      <h1>Live Dashboard</h1>  
+    // remove styles on main after page is setup (just for dev purposes)
+    <main className={styles.main}>
+      {/* home button div */}
+      <div className={styles.homeButtonDiv}>
+        <button className={styles.homeButton} onClick={handleHome}>HOME</button> 
       </div>
-      <button className={styles.startButton} onClick={handleHome}>Start</button> 
+
+      {/* live dashboard div */}
+      <div className={styles.liveDashboard}>
+        <h1>Live Dashboard</h1>  
+      </div>
+
+      
     </main>
   );
 }
