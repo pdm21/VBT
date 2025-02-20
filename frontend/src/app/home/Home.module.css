@@ -46,6 +46,7 @@
 
 .dropdownContainer {
     height: 100%;
+    text-align: center;
 }
 
 .dropdownContainer, .metricsContainer {
