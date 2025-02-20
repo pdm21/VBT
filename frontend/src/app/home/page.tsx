@@ -1,14 +1,37 @@
 "use client";
 import { useState } from "react";
-import Dropdown from "./components/Dropdown";
-import MetricInput from "./components/MetricInput";
-import styles from "./styles/page.module.css"
+import { useRouter } from "next/navigation" // next.js navigatioon
+import Dropdown from "../components/Dropdown";
+import MetricInput from "../components/MetricInput";
+import styles from "./Home.module.css"
 
 export default function Home() {
+  const router = useRouter();
+
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [numReps, setNumReps] = useState("");
   const [maxVelocity, setMaxVelocity] = useState("");
   const [minVelocity, setMinVelocity] = useState("");
+
+  const handleStart = () => {
+    // 1. check that no fields are empty
+    if (!selectedOption || !numReps || !maxVelocity || !minVelocity) {
+      alert("Please fill in all fields before starting!")
+      return;
+    }
+
+    // 2. check that no values are negative
+    const reps = Number(numReps);
+    const maxV = Number(maxVelocity);
+    const minV = Number(minVelocity);
+
+    if (reps < 0 || maxV < 0 || minV < 0) {
+      alert("Values may not be negative. Please provide valid values for reps, maxV and minV");
+      return;
+    }
+
+    router.push("/dashboard")
+  }
 
   return (
     <main>
@@ -50,8 +73,13 @@ export default function Home() {
 
       {/* Bottom Div */}
       <div className={styles.bottomDiv}>
-        <button className={styles.startButton}>Start</button>
-        <button className={styles.resetButton}>Reset</button>
+        <button className={styles.startButton} onClick={handleStart}>Start</button> {/* ✅ Calls handleStart */}
+        <button className={styles.resetButton} onClick={() => {
+          setSelectedOption(null);
+          setNumReps("");
+          setMaxVelocity("");
+          setMinVelocity("");
+        }}>Reset</button>
       </div>
     </main>
   );
