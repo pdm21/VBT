@@ -1,0 +1,33 @@
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdownButton {
+    background-color: blue;
+    color: white;
+    padding: 2% 0%;
+    border: none;
+    cursor: pointer;
+    border-radius: 5%;
+    font-size: large;
+}
+
+.dropdownMenu {
+    background: white;
+    padding: 0;
+    margin: 0;
+    border: 10px solid #ddd;
+}
+
+.dropdownMenu li {
+    padding: 10px;
+    border: 2px dotted black;
+    cursor: pointer;
+    color: black;
+}
+
+.dropdownMenu li:hover {
+    background-color: lightgray;
+}
+
