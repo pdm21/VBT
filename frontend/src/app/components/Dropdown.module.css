@@ -1,6 +1,9 @@
 .dropdown {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .dropdownButton {
@@ -11,13 +14,19 @@
     cursor: pointer;
     border-radius: 5%;
     font-size: large;
+    margin-top: 20%;
 }
 
 .dropdownMenu {
+    position: absolute;
+    top: 100%; 
+    left: 50%;
+    transform: translateX(-50%);
     background: white;
     padding: 0;
     margin: 0;
     border: 10px solid #ddd;
+    list-style: none;
 }
 
 .dropdownMenu li {
