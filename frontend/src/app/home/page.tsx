@@ -42,7 +42,7 @@ export default function Home() {
 
         {/* Centered text div */}
         <div className={styles.centerDiv}>
-          <p className={styles.welcomeText}>Welcome</p>
+          <p className={styles.welcomeText}>Welcome to VBT</p>
         </div>
 
         {/* Right div with logo aligned right */}
@@ -53,20 +53,22 @@ export default function Home() {
 
       {/* Middle Area with Dropdown and Metric Inputs */}
       <div className={styles.middleDiv}>
-        <div className={styles.dropdownContainer}>
-        {/* Dropdown for Exercise Selection */}
-        <Dropdown
-          options={["Squats", "Deadlift", "Bench Press", "Hang Cleans", "Jerks"]}
-          onSelect={(option) => setSelectedOption(option)}
-        />
-        {selectedOption && <p>You selected: {selectedOption}</p>}
+      <div className={styles.dropdownContainer}>
+          <div className="button-grid">
+            <button className={styles.Squats} onClick={() => setSelectedOption("Squats")}>Squats</button>
+            <button className={styles.Deadlift} onClick={() => setSelectedOption("Deadlift")}>Deadlift</button>
+            <button className={styles.BenchPress} onClick={() => setSelectedOption("Bench Press")}>Bench Press</button>
+            <button className={styles.HangCleans} onClick={() => setSelectedOption("Hang Cleans")}>Hang Cleans</button>
+            <button className={styles.Jerks} onClick={() => setSelectedOption("Jerks")}>Jerks</button>
+          </div>
+          {selectedOption && <p className={styles.SelectedExercise}>You selected: {selectedOption}</p>}
         </div>
         {/* Metrics Section */}
         <div className={styles.metricsContainer}>
           <div className={styles.row}>
-            <MetricInput label="Number of reps:" value={numReps} onChange={setNumReps} />
-            <MetricInput label="Max. v:" value={maxVelocity} onChange={setMaxVelocity} />
-            <MetricInput label="Min. v:" value={minVelocity} onChange={setMinVelocity} />
+            <MetricInput label="Number of Reps:" value={numReps} onChange={setNumReps} />
+            <MetricInput label="Max. velocity:" value={maxVelocity} onChange={setMaxVelocity} />
+            <MetricInput label="Min. velocity:" value={minVelocity} onChange={setMinVelocity} />
           </div>
         </div>
       </div>

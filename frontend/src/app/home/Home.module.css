@@ -1,56 +1,49 @@
 /* Home.module.css */
 
 /* General layout */
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100vw;
-    background-color: #1F44BF; /* Deep blue background */
-  }
-  
+
   /* Welcome Header */
   .welcomeHeader {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: center;
     width: 100%;
     height: 100px;
-    /* max-width: 600px; */
     background-color: #1F44BF;
     color: white;
     padding: 10px 20px;
-    font-size: 45px;
+    font-size: xx-large;
     font-weight: bold;
     flex: 1;
-    /* border-top-left-radius: 15px;
-    border-top-right-radius: 15px; */
+    align-items: center;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
   }
 
   .leftDiv, .centerDiv, .rightDiv {
     flex: 1;
+  }
+
+  .leftDiv, .centerDiv {
     text-align: center;
     place-content: center;
   }
-  
+
+  .rightDiv {
+    display: flex;  
+    justify-content: flex-end; 
+    align-items: center; 
+  }
+
   /* Main Content */
   .middleDiv {
-    background-color: white;
+    background-color: rgba(142, 174, 255, 0.347);
     color: #000000;
     width: 100%;
-    /* max-width: 600px; */
     height: 70vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); */
-  }
+}
   
   .dropdownContainer {
     height: 100%;
@@ -67,8 +60,8 @@
   }
   
   .inputField {
-    background-color: #E5E7EB; /* Light gray */
-    border: 2px solid #1F44BF; /* Blue border */
+    background-color: #E5E7EB; 
+    border: 2px solid #1F44BF;
     padding: 10px;
     font-size: 16px;
     width: 60px;
@@ -81,13 +74,11 @@
   .bottomDiv {
     display: flex;
     justify-content: space-around;
-    /* width: 90%; */
-    /* max-width: 600px; */
     margin-top: 20px;
   }
   
   .startButton {
-    background-color: #4ADE80; /* Green */
+    background-color: #2cd369; /* Green */
     padding: 10px 20px;
     font-size: 30px;
     font-weight: bold;
@@ -96,7 +87,6 @@
     border-radius: 10px;
     cursor: pointer;
     width: 45%;
-    /* height: 120px; */
   }
   
   .resetButton {
@@ -108,15 +98,20 @@
     border: none;
     border-radius: 10px;
     width: 45%;
-    /* height: 120px; */
   }
   
   .startButton:hover {
-    background-color: #22C55E; /* Darker green */
+    background-color: #16ad4e; /* Darker green */
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    transform: scale(1.05); /* Slight scaling effect on hover */
   }
   
   .resetButton:hover {
     background-color: #9CA3AF; /* Darker gray */
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    transform: scale(1.05); /* Slight scaling effect on hover */
   }
   
   /* Error Message */
@@ -131,4 +126,38 @@
     width: 200px; 
     height: auto; 
     max-height: 100px; 
+  }
+
+  .button-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 buttons in the top row */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows: top and bottom */
+    gap: 10px; /* Space between buttons */
+    width: 100%; /* Ensure it takes the full width of the container */
+    max-width: 600px; /* Optional: to prevent the buttons from getting too wide */
+    margin: 0 auto; /* Center the grid horizontally */
+  }
+  
+  .Squats, .Deadlift, .BenchPress, .HangCleans, .Jerks {
+    background-color: #eeeeee;
+    border: 2px solid #1F44BF;
+    border-radius: 10px;
+    padding: 20px; /* Adjust padding for consistency */
+    font-size: 26px; /* Adjust font size */
+    font-weight: bold;
+    color: black;
+    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  }
+  
+  .Squats:hover, .Deadlift:hover, .BenchPress:hover, .HangCleans:hover, .Jerks:hover {
+    background-color: #d1d1d1;
+    transform: scale(1.05); /* Slight scaling effect on hover */
+  }
+
+  .SelectedExercise {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 10%;
+    font-size: x-large;
   }
