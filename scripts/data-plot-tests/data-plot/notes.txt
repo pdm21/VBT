@@ -1,0 +1,7 @@
+activate virtual environment with:
+
+source venv/bin/activate
+
+install requirements with:
+
+pip install -r requirements.txt
