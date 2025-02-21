@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import VelocityBar from "../components/VelocityBar"; // ✅ Import TSX component
-import styles from "./dashboard.module.css";
+import styles from "./Dashboard.module.css";
 
 interface RepData {
   id: number;

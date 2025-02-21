@@ -20,6 +20,10 @@
     border-radius: 10px;
 }
 
+.homeButton:hover {
+    background-color: darkblue; /* Changes the color to a darker shade */
+}
+
 .liveDashboard {
     display: flex;
     flex-direction: column;

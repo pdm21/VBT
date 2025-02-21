@@ -47,7 +47,7 @@ export default function Home() {
 
         {/* Right div with logo aligned right */}
         <div className={styles.rightDiv}>
-          <img src="/logo.png" alt="VBT Logo" className={styles.logo} />
+          <img src="/VBT_logo_blue.png" alt="VBT Logo" className={styles.logo} />
         </div>
       </div>
 
@@ -56,15 +56,15 @@ export default function Home() {
         <div className={styles.dropdownContainer}>
         {/* Dropdown for Exercise Selection */}
         <Dropdown
-          options={["Bench Press", "Barbell Squat", "Overhead Press", "Hang Cleans"]}
+          options={["Squats", "Deadlift", "Bench Press", "Hang Cleans", "Jerks"]}
           onSelect={(option) => setSelectedOption(option)}
         />
         {selectedOption && <p>You selected: {selectedOption}</p>}
         </div>
         {/* Metrics Section */}
         <div className={styles.metricsContainer}>
-          <MetricInput label="Number of reps:" value={numReps} onChange={setNumReps} />
           <div className={styles.row}>
+            <MetricInput label="Number of reps:" value={numReps} onChange={setNumReps} />
             <MetricInput label="Max. v:" value={maxVelocity} onChange={setMaxVelocity} />
             <MetricInput label="Min. v:" value={minVelocity} onChange={setMinVelocity} />
           </div>
@@ -73,13 +73,13 @@ export default function Home() {
 
       {/* Bottom Div */}
       <div className={styles.bottomDiv}>
-        <button className={styles.startButton} onClick={handleStart}>Start</button> {/* ✅ Calls handleStart */}
+        <button className={styles.startButton} onClick={handleStart}>START</button> {/* ✅ Calls handleStart */}
         <button className={styles.resetButton} onClick={() => {
           setSelectedOption(null);
           setNumReps("");
           setMaxVelocity("");
           setMinVelocity("");
-        }}>Reset</button>
+        }}>RESET</button>
       </div>
     </main>
   );

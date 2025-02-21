@@ -7,14 +7,15 @@
 }
 
 .dropdownButton {
-    background-color: blue;
-    color: white;
+    background-color: rgb(224, 224, 224);
+    color: rgb(0, 0, 0);
     padding: 2% 0%;
     border: none;
     cursor: pointer;
     border-radius: 5%;
-    font-size: large;
-    margin-top: 20%;
+    font-size: xx-large;
+    margin-top: 35%;
+    font-style: bold;
 }
 
 .dropdownMenu {
@@ -31,7 +32,8 @@
 
 .dropdownMenu li {
     padding: 10px;
-    border: 2px dotted black;
+    width: 100px;
+    border: 2px solid black;
     cursor: pointer;
     color: black;
 }
