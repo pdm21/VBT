@@ -30,7 +30,8 @@ export default function Home() {
       return;
     }
 
-    router.push("/dashboard")
+    // Pass values as URL parameters
+    router.push(`/dashboard?reps=${reps}&maxV=${maxV}&minV=${minV}`);
   }
 
   return (

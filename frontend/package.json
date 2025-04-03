@@ -19,12 +19,12 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
-    "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/node": "20.17.30",
+    "@types/react": "19.1.0",
     "@types/react-dom": "^19",
     "@types/react-plotly.js": "^2.6.3",
     "eslint": "^9",
     "eslint-config-next": "15.1.7",
-    "typescript": "^5"
+    "typescript": "5.8.2"
   }
 }
