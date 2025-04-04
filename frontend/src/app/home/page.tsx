@@ -60,7 +60,7 @@ export default function Home() {
             <button className={styles.Deadlift} onClick={() => setSelectedOption("Deadlift")}>Deadlift</button>
             <button className={styles.BenchPress} onClick={() => setSelectedOption("Bench Press")}>Bench Press</button>
             <button className={styles.HangCleans} onClick={() => setSelectedOption("Hang Cleans")}>Hang Cleans</button>
-            <button className={styles.Jerks} onClick={() => setSelectedOption("Jerks")}>Jerks</button>
+            <button className={styles.Jerks} onClick={() => setSelectedOption("OH Press")}>OH Press</button>
           </div>
           {selectedOption && <p className={styles.SelectedExercise}>You selected: {selectedOption}</p>}
         </div>
