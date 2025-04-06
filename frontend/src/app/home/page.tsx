@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation" // next.js navigatioon
 import Dropdown from "../components/Dropdown";
 import MetricInput from "../components/MetricInput";
 import styles from "./Home.module.css"
+import { useSocket } from "../contexts/SocketContext";
 
 export default function Home() {
   const router = useRouter();
+  const { socket } = useSocket();
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [numReps, setNumReps] = useState("");
@@ -30,8 +32,13 @@ export default function Home() {
       return;
     }
 
-    // Pass values as URL parameters
-    router.push(`/dashboard?reps=${reps}&maxV=${maxV}&minV=${minV}`);
+    const path = `/dashboard?reps=${reps}&maxV=${maxV}&minV=${minV}`;
+    
+    // Emit navigation event to all other clients
+    socket?.emit('navigate', path);
+    
+    // Navigate locally
+    router.push(path);
   }
 
   return (
