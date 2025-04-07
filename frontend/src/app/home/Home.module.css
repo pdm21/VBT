@@ -114,6 +114,12 @@
     transform: scale(1.05); /* Slight scaling effect on hover */
   }
   
+  .startButton.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    background-color: #cccccc;
+  }
+  
   /* Error Message */
   .error {
     color: red;

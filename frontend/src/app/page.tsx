@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"
 import Dropdown from "./components/Dropdown";
 import MetricInput from "./components/MetricInput";
@@ -9,13 +9,19 @@ import { useSocket } from "./contexts/SocketContext";
 export default function Home() {
   const router = useRouter();
   const { socket } = useSocket();
+  const [isLoading, setIsLoading] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [numReps, setNumReps] = useState("");
   const [maxVelocity, setMaxVelocity] = useState("");
   const [minVelocity, setMinVelocity] = useState("");
 
-  const handleStart = () => {
+  // Prefetch dashboard page
+  useEffect(() => {
+    router.prefetch("/dashboard");
+  }, [router]);
+
+  const handleStart = async () => {
     // 1. check that no fields are empty
     if (!selectedOption || !numReps || !maxVelocity || !minVelocity) {
       alert("Please fill in all fields before starting!")
@@ -32,6 +38,7 @@ export default function Home() {
       return;
     }
 
+    setIsLoading(true);
     const path = `/dashboard?reps=${reps}&maxV=${maxV}&minV=${minV}`;
     
     // Emit navigation event to all other clients
@@ -83,7 +90,13 @@ export default function Home() {
 
       {/* Bottom Div */}
       <div className={styles.bottomDiv}>
-        <button className={styles.startButton} onClick={handleStart}>START</button>
+        <button 
+          className={`${styles.startButton} ${isLoading ? styles.loading : ''}`} 
+          onClick={handleStart}
+          disabled={isLoading}
+        >
+          {isLoading ? 'Loading...' : 'START'}
+        </button>
         <button className={styles.resetButton} onClick={() => {
           setSelectedOption(null);
           setNumReps("");

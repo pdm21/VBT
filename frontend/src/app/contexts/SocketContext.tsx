@@ -24,7 +24,8 @@ export function SocketProvider({ children }: { children: React.ReactNode }) {
     // Only create socket if it doesn't exist
     if (!socketRef.current) {
       const socketInstance = io('http://localhost:3001', {
-   // const socketInstance = io('http://150.209.41.210:3001', { this is for the team
+    //   this is for the team
+    //   const socketInstance = io('http://150.209.41.210:3001', { 
         reconnection: true,
         reconnectionAttempts: 5,
         reconnectionDelay: 1000,
