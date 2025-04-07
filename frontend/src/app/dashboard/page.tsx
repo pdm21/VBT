@@ -6,6 +6,7 @@ import styles from "./Dashboard.module.css";
 import Image from "next/image";
 import fs from 'fs';
 import path from 'path';
+import { useSocket } from "../contexts/SocketContext";
 
 interface VelocityHistory {
   value: number;
@@ -22,6 +23,7 @@ interface RepData {
 export default function Dashboard() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { socket } = useSocket();
   const [repData, setRepData] = useState<RepData[]>([]);
   const [csvData, setCsvData] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -189,11 +191,17 @@ export default function Dashboard() {
     }
   }, [csvData, numDevices, isLoading]);
   
+  const handleHomeClick = () => {
+    const path = "/";
+    socket?.emit('navigate', path);
+    router.push(path);
+  };
+
   return (
     <main className={styles.main}>
       <div className={styles.header}>
         <div className={styles.leftDiv}>
-          <button className={styles.homeButton} onClick={() => router.push("/home")}>HOME</button>
+          <button className={styles.homeButton} onClick={handleHomeClick}>HOME</button>
         </div>
         <div className={styles.centerDiv}>
           <p>Live Dashboard</p>
