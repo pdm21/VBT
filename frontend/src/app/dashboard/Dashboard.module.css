@@ -1,5 +1,4 @@
 .main {
-    /* border: 5px solid black; */
     width: 100%;
     max-width: 100vw;
     padding: 0;
@@ -8,20 +7,23 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: var(--background);
+    color: var(--foreground);
 }
 
 .header {
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100px;
-    background-color: #1F44BF;
-    color: white;
+    height: 80px;
+    background-color: var(--background);
+    color: var(--foreground);
     padding: 10px 20px;
-    font-size: xx-large;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
     align-items: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
 }
 
 .leftDiv, .centerDiv, .rightDiv {
@@ -31,11 +33,12 @@
 }
 
 .leftDiv {
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 .centerDiv {
     justify-content: center;
+    letter-spacing: -0.5px;
 }
 
 .rightDiv {
@@ -43,58 +46,61 @@
 }
 
 .homeButton {
-    height: 50px;
-    width: 120px;
-    font-size: large;
-    font-weight: bolder;
-    background-color: #D0C874;
+    height: 40px;
+    width: 100px;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: var(--primary);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .homeButton:hover {
-    background-color: #b8b267;
-    transform: scale(1.05);
+    background-color: #e6294e;
+    transform: scale(1.02);
 }
 
 .logo {
-    width: 200px;
+    width: 120px;
     height: auto;
-    max-height: 80px;
+    max-height: 40px;
 }
 
 .content {
     flex: 1;
     padding: 20px;
-    background-color: rgba(142, 174, 255, 0.347);
+    background-color: var(--background);
 }
 
 .graphContainer {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
     box-sizing: border-box;
     align-items: stretch;
 }
 
 .graphWrapper {
-    border: 2px solid #1F44BF;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    background-color: white;
-    border-radius: 10px;
-    padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: var(--border-radius);
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     height: 150px;
     width: 100%;
     position: relative;
+    overflow: hidden;
 }
 
 .graphWrapper > div {
@@ -107,13 +113,14 @@
 
 .graphTitle {
     position: absolute;
-    top: 5px;
-    left: 10px;
-    font-size: 1rem;
-    color: #1F44BF;
+    top: 8px;
+    left: 16px;
+    font-size: 16px;
+    color: var(--accent);
     text-align: left;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    font-weight: 600;
+    z-index: 1;
 }
 
 .graphContent {
@@ -124,35 +131,37 @@
 }
 
 .velocityLabel {
-    font-size: 1.2rem;
-    font-weight: bold;
+    font-size: 16px;
+    font-weight: 600;
     text-align: center;
-    color: #333;
+    color: var(--foreground);
     padding: 5px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
     width: 100%;
 }
 
 .velocityHistory {
     width: 120px;
-    padding: 5px;
-    background-color: #f5f5f5;
-    border-radius: 4px;
-    font-size: 0.8rem;
+    padding: 12px;
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    font-size: 14px;
     height: 100%;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .velocityHistory h3 {
     margin: 0 0 10px 0;
-    font-size: 0.9rem;
-    color: #333;
+    font-size: 14px;
+    color: var(--foreground);
     text-align: center;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    font-weight: 600;
 }
 
 .velocityHistory ul {
@@ -166,14 +175,57 @@
 }
 
 .velocityHistory li {
-    padding: 2px 0;
-    font-size: 0.8rem;
-    color: #666;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    padding: 6px 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .velocityHistory li:last-child {
     border-bottom: none;
+}
+
+.dashboardInfo {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
+.infoCard {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.infoTitle {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--foreground);
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.infoDetail {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.infoDetail span {
+    font-size: 16px;
+    color: var(--foreground);
+    padding: 8px 16px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: var(--border-radius);
+    display: inline-block;
 }
 
 .loadingContainer {
@@ -183,14 +235,14 @@
   justify-content: center;
   height: 100vh;
   width: 100vw;
-  background-color: #f5f5f5;
+  background-color: var(--background);
 }
 
 .loadingSpinner {
-  width: 50px;
-  height: 50px;
-  border: 5px solid #f3f3f3;
-  border-top: 5px solid #3498db;
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top: 3px solid var(--accent);
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin-bottom: 20px;
@@ -202,12 +254,39 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f5f5f5;
-  border-radius: 4px;
-  color: #666;
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+  font-weight: 500;
 }
 
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .graphWrapper {
+    height: auto;
+    padding: 40px 16px 16px;
+    flex-direction: column;
+  }
+  
+  .graphTitle {
+    width: 100%;
+    text-align: center;
+    left: 0;
+  }
+
+  .infoDetail {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .infoDetail span {
+    width: 100%;
+    text-align: center;
+  }
 }

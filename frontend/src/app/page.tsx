@@ -48,8 +48,13 @@ export default function Home() {
     router.push(path);
   }
 
+  // Helper function to get button class name with selected state
+  const getButtonClassName = (buttonName: string) => {
+    return `${styles[buttonName]} ${selectedOption === buttonName ? styles.selected : ''}`;
+  }
+
   return (
-    <main>
+    <main className="apple-container">
       {/* Welcome Header */}
       <div className={styles.welcomeHeader}>
         {/* Empty left div for spacing */}
@@ -57,7 +62,7 @@ export default function Home() {
 
         {/* Centered text div */}
         <div className={styles.centerDiv}>
-          <p className={styles.welcomeText}>Welcome to VBT</p>
+          <p className={styles.welcomeText}>Velocity Based Training</p>
         </div>
 
         {/* Right div with logo aligned right */}
@@ -66,24 +71,54 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Middle Area with Dropdown and Metric Inputs */}
+      {/* Middle Area with Exercise selection and Metric Inputs */}
       <div className={styles.middleDiv}>
         <div className={styles.dropdownContainer}>
-          <div className="button-grid">
-            <button className={styles.Squats} onClick={() => setSelectedOption("Squats")}>Squats</button>
-            <button className={styles.Deadlift} onClick={() => setSelectedOption("Deadlift")}>Deadlift</button>
-            <button className={styles.BenchPress} onClick={() => setSelectedOption("Bench Press")}>Bench Press</button>
-            <button className={styles.HangCleans} onClick={() => setSelectedOption("Hang Cleans")}>Hang Cleans</button>
-            <button className={styles.Jerks} onClick={() => setSelectedOption("OH Press")}>OH Press</button>
+          <div className={styles["button-grid"]}>
+            <button 
+              className={getButtonClassName("Squats")} 
+              onClick={() => setSelectedOption("Squats")}
+            >
+              <span className={styles.buttonIcon}>🏋️</span>
+              Squats
+            </button>
+            <button 
+              className={getButtonClassName("Deadlift")} 
+              onClick={() => setSelectedOption("Deadlift")}
+            >
+              <span className={styles.buttonIcon}>🔄</span>
+              Deadlift
+            </button>
+            <button 
+              className={getButtonClassName("BenchPress")} 
+              onClick={() => setSelectedOption("Bench Press")}
+            >
+              <span className={styles.buttonIcon}>💪</span>
+              Bench Press
+            </button>
+            <button 
+              className={getButtonClassName("HangCleans")} 
+              onClick={() => setSelectedOption("Hang Cleans")}
+            >
+              <span className={styles.buttonIcon}>⚡</span>
+              Hang Cleans
+            </button>
+            <button 
+              className={getButtonClassName("Jerks")} 
+              onClick={() => setSelectedOption("OH Press")}
+            >
+              <span className={styles.buttonIcon}>🔝</span>
+              OH Press
+            </button>
           </div>
-          {selectedOption && <p className={styles.SelectedExercise}>You selected: {selectedOption}</p>}
+          {selectedOption && <p className={styles.SelectedExercise}>Selected: {selectedOption}</p>}
         </div>
         {/* Metrics Section */}
         <div className={styles.metricsContainer}>
           <div className={styles.row}>
-            <MetricInput label="Number of Reps:" value={numReps} onChange={setNumReps} />
-            <MetricInput label="Max. velocity:" value={maxVelocity} onChange={setMaxVelocity} />
-            <MetricInput label="Min. velocity:" value={minVelocity} onChange={setMinVelocity} />
+            <MetricInput label="Number of Reps" value={numReps} onChange={setNumReps} />
+            <MetricInput label="Max Velocity" value={maxVelocity} onChange={setMaxVelocity} />
+            <MetricInput label="Min Velocity" value={minVelocity} onChange={setMinVelocity} />
           </div>
         </div>
       </div>
@@ -95,14 +130,14 @@ export default function Home() {
           onClick={handleStart}
           disabled={isLoading}
         >
-          {isLoading ? 'Loading...' : 'START'}
+          {isLoading ? 'Loading...' : 'Start'}
         </button>
         <button className={styles.resetButton} onClick={() => {
           setSelectedOption(null);
           setNumReps("");
           setMaxVelocity("");
           setMinVelocity("");
-        }}>RESET</button>
+        }}>Reset</button>
       </div>
     </main>
   );

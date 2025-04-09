@@ -7,15 +7,17 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 100px;
-    background-color: #1F44BF;
-    color: white;
+    height: 80px;
+    background-color: #000000;
+    color: var(--foreground);
     padding: 10px 20px;
-    font-size: xx-large;
-    font-weight: bold;
+    font-size: 22px;
+    font-weight: 600;
     flex: 1;
     align-items: center;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    position: relative;
+    z-index: 10;
   }
 
   .leftDiv, .centerDiv, .rightDiv {
@@ -35,19 +37,23 @@
 
   /* Main Content */
   .middleDiv {
-    background-color: rgba(142, 174, 255, 0.347);
-    color: #000000;
+    background-color: var(--background);
+    color: var(--foreground);
     width: 100%;
     height: 70vh;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
   
   .dropdownContainer {
     height: 100%;
     text-align: center;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
   }
 
   .dropdownContainer, .metricsContainer {
@@ -57,113 +63,173 @@
   .row {
     display: flex;
     justify-content: space-around;
+    gap: 12px;
+    margin-top: 40px;
   }
   
   .inputField {
-    background-color: #E5E7EB; 
-    border: 2px solid #1F44BF;
-    padding: 10px;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px;
     font-size: 16px;
-    width: 60px;
+    width: 80px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: var(--border-radius);
     margin: 10px;
+    color: var(--foreground);
+    appearance: none;
   }
   
   /* Buttons */
   .bottomDiv {
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+    gap: 20px;
   }
   
   .startButton {
-    background-color: #2cd369; /* Green */
-    padding: 10px 20px;
-    font-size: 30px;
-    font-weight: bold;
+    background-color: var(--accent);
+    padding: 16px 20px;
+    font-size: 20px;
+    font-weight: 600;
     color: black;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     cursor: pointer;
     width: 45%;
+    text-transform: uppercase;
   }
   
   .resetButton {
-    background-color: #D1D5DB; /* Gray */
-    padding: 10px 20px;
-    font-size: 30px;
-    font-weight: bold;
-    color: black;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 16px 20px;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--foreground);
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     width: 45%;
+    text-transform: uppercase;
   }
   
   .startButton:hover {
-    background-color: #16ad4e; /* Darker green */
-    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    background-color: #25c14c;
+    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    transform: scale(1.05); /* Slight scaling effect on hover */
+    transform: scale(1.02);
   }
   
   .resetButton:hover {
-    background-color: #9CA3AF; /* Darker gray */
-    cursor: pointer; /* Pointer cursor to indicate it's clickable */
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
-    transform: scale(1.05); /* Slight scaling effect on hover */
+    transform: scale(1.02);
   }
   
   .startButton.loading {
-    opacity: 0.7;
+    opacity: 0.6;
     cursor: not-allowed;
-    background-color: #cccccc;
+    background-color: #999;
   }
   
   /* Error Message */
   .error {
-    color: red;
+    color: var(--primary);
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 600;
     margin-top: 10px;
   }
 
   .logo {
-    width: 200px; 
+    width: 120px; 
     height: auto; 
-    max-height: 100px; 
+    max-height: 40px; 
   }
 
   .button-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 buttons in the top row */
-    grid-template-rows: repeat(2, 1fr); /* 2 rows: top and bottom */
-    gap: 10px; /* Space between buttons */
-    width: 100%; /* Ensure it takes the full width of the container */
-    max-width: 600px; /* Optional: to prevent the buttons from getting too wide */
-    margin: 0 auto; /* Center the grid horizontally */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
   }
   
   .Squats, .Deadlift, .BenchPress, .HangCleans, .Jerks {
-    background-color: #eeeeee;
-    border: 2px solid #1F44BF;
-    border-radius: 10px;
-    padding: 20px; /* Adjust padding for consistency */
-    font-size: 26px; /* Adjust font size */
-    font-weight: bold;
-    color: black;
-    cursor: pointer; /* Pointer cursor to indicate it's clickable */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--foreground);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 110px;
+    position: relative;
+    overflow: hidden;
   }
   
   .Squats:hover, .Deadlift:hover, .BenchPress:hover, .HangCleans:hover, .Jerks:hover {
-    background-color: #d1d1d1;
-    transform: scale(1.05); /* Slight scaling effect on hover */
+    background-color: #2a2a2c;
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Selected state for exercise buttons */
+  .Squats.selected, .Deadlift.selected, .BenchPress.selected, .HangCleans.selected, .Jerks.selected {
+    background-color: rgba(44, 212, 85, 0.15);
+    border: 1px solid var(--accent);
+    box-shadow: 0 0 0 1px var(--accent);
   }
 
   .SelectedExercise {
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    margin: 10%;
-    font-size: x-large;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    margin: 24px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--accent);
+  }
+
+  /* Icons for buttons */
+  .buttonIcon {
+    font-size: 28px;
+    margin-bottom: 8px;
+    opacity: 0.8;
+  }
+
+  .welcomeText {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+  }
+
+  /* Media queries for responsive design */
+  @media (max-width: 768px) {
+    .button-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(3, 1fr);
+    }
+
+    .row {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bottomDiv {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .startButton, .resetButton {
+      width: 100%;
+    }
   }

@@ -218,7 +218,9 @@ export default function Dashboard() {
     <main className={styles.main}>
       <div className={styles.header}>
         <div className={styles.leftDiv}>
-          <button className={styles.homeButton} onClick={handleHomeClick}>HOME</button>
+          <button className={styles.homeButton} onClick={handleHomeClick}>
+            Home
+          </button>
         </div>
         <div className={styles.centerDiv}>
           <p>Live Dashboard</p>
@@ -227,8 +229,8 @@ export default function Dashboard() {
           <Image 
             src="/VBT_logo_blue.png" 
             alt="VBT Logo" 
-            width={200} 
-            height={80} 
+            width={120} 
+            height={40} 
             className={styles.logo}
             priority
           />
@@ -249,18 +251,19 @@ export default function Dashboard() {
                   />
                 </Suspense>
               </div>
-              <div className={styles.velocityHistory}>
-                <h3>Velocity:</h3>
-                <ul>
-                  {rep.velocityHistory.map((v, index) => (
-                    <li key={v.timestamp}>
-                      {index + 1}. {v.value.toFixed(3)} m/s
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           ))}
+        </div>
+        
+        <div className={styles.dashboardInfo}>
+          <div className={styles.infoCard}>
+            <div className={styles.infoTitle}>Training Parameters</div>
+            <div className={styles.infoDetail}>
+              <span>Reps: {numReps}</span>
+              <span>Max Velocity: {maxVelocity} m/s</span>
+              <span>Min Velocity: {minVelocity} m/s</span>
+            </div>
+          </div>
         </div>
       </div>
     </main>
