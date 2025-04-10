@@ -1,235 +1,269 @@
 /* Home.module.css */
 
 /* General layout */
-
-  /* Welcome Header */
-  .welcomeHeader {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    height: 80px;
-    background-color: #000000;
-    color: var(--foreground);
-    padding: 10px 20px;
-    font-size: 22px;
-    font-weight: 600;
-    flex: 1;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
-    position: relative;
-    z-index: 10;
-  }
-
-  .leftDiv, .centerDiv, .rightDiv {
-    flex: 1;
-  }
-
-  .leftDiv, .centerDiv {
-    text-align: center;
-    place-content: center;
-  }
-
-  .rightDiv {
-    display: flex;  
-    justify-content: flex-end; 
-    align-items: center; 
-  }
-
-  /* Main Content */
-  .middleDiv {
-    background-color: var(--background);
-    color: var(--foreground);
-    width: 100%;
-    height: 70vh;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
+.main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background);
 }
-  
-  .dropdownContainer {
-    height: 100%;
-    text-align: center;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-  }
 
-  .dropdownContainer, .metricsContainer {
-    flex: 1;
-  }
-  
-  .row {
-    display: flex;
-    justify-content: space-around;
-    gap: 12px;
-    margin-top: 40px;
-  }
-  
-  .inputField {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    padding: 12px;
-    font-size: 16px;
-    width: 80px;
-    text-align: center;
-    border-radius: var(--border-radius);
-    margin: 10px;
-    color: var(--foreground);
-    appearance: none;
-  }
-  
-  /* Buttons */
-  .bottomDiv {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 30px;
-    width: 100%;
-    max-width: 800px;
-    padding: 0 20px;
-    gap: 20px;
-  }
-  
-  .startButton {
-    background-color: var(--accent);
-    padding: 16px 20px;
-    font-size: 20px;
-    font-weight: 600;
-    color: black;
-    border: none;
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    width: 45%;
-    text-transform: uppercase;
-  }
-  
-  .resetButton {
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 16px 20px;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--foreground);
-    border: none;
-    border-radius: var(--border-radius);
-    width: 45%;
-    text-transform: uppercase;
-  }
-  
-  .startButton:hover {
-    background-color: #25c14c;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    transform: scale(1.02);
-  }
-  
-  .resetButton:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    transform: scale(1.02);
-  }
-  
-  .startButton.loading {
-    opacity: 0.6;
-    cursor: not-allowed;
-    background-color: #999;
-  }
-  
-  /* Error Message */
-  .error {
-    color: var(--primary);
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 10px;
-  }
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: white;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
-  .logo {
-    width: 120px; 
-    height: auto; 
-    max-height: 40px; 
-  }
+.headerLogo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--primary);
+}
 
-  .button-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 16px;
-    width: 100%;
-    max-width: 800px;
-    margin: 20px auto;
+.logoIcon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.headerRight {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Main content */
+.contentWrapper {
+  flex: 1;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroSection {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.logoLarge {
+  width: 80px;
+  height: 80px;
+  background-color: var(--primary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.heroTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--foreground);
+}
+
+.heroSubtitle {
+  font-size: 16px;
+  color: #6b7280;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Status card */
+.statusCard {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 24px;
+}
+
+.statusHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.statusTitle {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.statusIndicator {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 100px;
+  background-color: var(--success-light);
+  color: var(--success);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.statusIcon {
+  color: var(--success);
+}
+
+.statusMessage {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 16px;
+}
+
+.readyMessage {
+  background-color: var(--success-light);
+  color: var(--success);
+  padding: 12px 16px;
+  border-radius: var(--border-radius);
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+}
+
+/* Training setup card */
+.setupCard {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+  width: 100%;
+  max-width: 600px;
+}
+
+.setupHeader {
+  margin-bottom: 24px;
+}
+
+.setupTitle {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.setupSubtitle {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.formGroup {
+  margin-bottom: 20px;
+}
+
+.formLabel {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--foreground);
+}
+
+.selectWrapper {
+  position: relative;
+}
+
+.selectInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  appearance: none;
+  background-color: white;
+  font-size: 16px;
+  color: var(--foreground);
+  cursor: pointer;
+}
+
+.selectArrow {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.velocityInputs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.velocityInputs .formGroup {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+.numberInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  color: var(--foreground);
+}
+
+.startButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.startButton:hover {
+  background-color: var(--primary-dark);
+}
+
+.startButton.loading {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.startIcon {
+  margin-left: 4px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .contentWrapper {
+    padding: 20px 16px;
   }
   
-  .Squats, .Deadlift, .BenchPress, .HangCleans, .Jerks {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: var(--border-radius);
-    padding: 20px;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--foreground);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
+  .velocityInputs {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 110px;
-    position: relative;
-    overflow: hidden;
+    gap: 12px;
   }
-  
-  .Squats:hover, .Deadlift:hover, .BenchPress:hover, .HangCleans:hover, .Jerks:hover {
-    background-color: #2a2a2c;
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Selected state for exercise buttons */
-  .Squats.selected, .Deadlift.selected, .BenchPress.selected, .HangCleans.selected, .Jerks.selected {
-    background-color: rgba(44, 212, 85, 0.15);
-    border: 1px solid var(--accent);
-    box-shadow: 0 0 0 1px var(--accent);
-  }
-
-  .SelectedExercise {
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
-    margin: 24px 0;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--accent);
-  }
-
-  /* Icons for buttons */
-  .buttonIcon {
-    font-size: 28px;
-    margin-bottom: 8px;
-    opacity: 0.8;
-  }
-
-  .welcomeText {
-    font-weight: 600;
-    letter-spacing: -0.5px;
-  }
-
-  /* Media queries for responsive design */
-  @media (max-width: 768px) {
-    .button-grid {
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(3, 1fr);
-    }
-
-    .row {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .bottomDiv {
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .startButton, .resetButton {
-      width: 100%;
-    }
-  }
+}

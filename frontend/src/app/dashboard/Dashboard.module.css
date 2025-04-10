@@ -1,9 +1,7 @@
 .main {
     width: 100%;
-    max-width: 100vw;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -15,278 +13,245 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80px;
-    background-color: var(--background);
+    height: 60px;
+    background-color: white;
     color: var(--foreground);
-    padding: 10px 20px;
-    font-size: 22px;
+    padding: 0 24px;
+    font-size: 16px;
     font-weight: 600;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+.headerLogo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--primary);
+}
+
+.logoIcon {
+    width: 32px;
+    height: 32px;
+    background-color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 
 .leftDiv, .centerDiv, .rightDiv {
-    flex: 1;
     display: flex;
     align-items: center;
 }
 
 .leftDiv {
     justify-content: flex-start;
+    min-width: 100px;
 }
 
 .centerDiv {
+    flex: 1;
     justify-content: center;
-    letter-spacing: -0.5px;
 }
 
 .rightDiv {
     justify-content: flex-end;
+    min-width: 100px;
 }
 
-.homeButton {
-    height: 40px;
-    width: 100px;
-    font-size: 16px;
-    font-weight: 600;
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    border-radius: var(--border-radius);
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background-color: white;
+    color: var(--foreground);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.2s;
 }
 
-.homeButton:hover {
-    background-color: #e6294e;
-    transform: scale(1.02);
+.backButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.logo {
-    width: 120px;
-    height: auto;
-    max-height: 40px;
+.backIcon {
+    width: 16px;
+    height: 16px;
 }
 
 .content {
     flex: 1;
-    padding: 20px;
+    padding: 24px;
     background-color: var(--background);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.exerciseHeader {
+    background-color: white;
+    border-radius: var(--border-radius);
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
+}
+
+.exerciseTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--foreground);
+}
+
+.exerciseParams {
+    color: #6b7280;
+    font-size: 14px;
 }
 
 .graphContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
+    background-color: white;
+    border-radius: var(--border-radius);
     padding: 20px;
-    box-sizing: border-box;
-    align-items: stretch;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
 }
 
 .graphWrapper {
-    background-color: var(--card-bg);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 10px;
-    border-radius: var(--border-radius);
-    padding: 16px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    height: 150px;
+    height: 400px;
     width: 100%;
     position: relative;
-    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-.graphWrapper > div {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.repCardsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
 }
 
-.graphTitle {
-    position: absolute;
-    top: 8px;
-    left: 16px;
-    font-size: 16px;
-    color: var(--accent);
-    text-align: left;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    z-index: 1;
-}
-
-.graphContent {
-    flex: 1;
-    height: 100%;
-    position: relative;
-    padding-top: 25px;
-}
-
-.velocityLabel {
-    font-size: 16px;
-    font-weight: 600;
-    text-align: center;
-    color: var(--foreground);
-    padding: 5px;
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    width: 100%;
-}
-
-.velocityHistory {
-    width: 120px;
-    padding: 12px;
-    background-color: var(--card-bg);
-    border-radius: var(--border-radius);
-    font-size: 14px;
-    height: 100%;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.velocityHistory h3 {
-    margin: 0 0 10px 0;
-    font-size: 14px;
-    color: var(--foreground);
-    text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
-    font-weight: 600;
-}
-
-.velocityHistory ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.velocityHistory li {
-    padding: 6px 0;
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
-    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.velocityHistory li:last-child {
-    border-bottom: none;
-}
-
-.dashboardInfo {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    padding: 0 20px;
-}
-
-.infoCard {
-    background-color: var(--card-bg);
+.repCard {
+    background-color: white;
     border-radius: var(--border-radius);
     padding: 20px;
-    width: 100%;
-    max-width: 800px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-}
-
-.infoTitle {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--foreground);
-    margin-bottom: 16px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.infoDetail {
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-color);
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-direction: column;
 }
 
-.infoDetail span {
+.repCardTitle {
     font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
     color: var(--foreground);
-    padding: 8px 16px;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: var(--border-radius);
+}
+
+.repVelocity {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: baseline;
+}
+
+.velocityUnit {
+    font-size: 16px;
+    font-weight: 400;
+    color: #6b7280;
+    margin-left: 4px;
+}
+
+.targetStatus {
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
     display: inline-block;
+    margin-top: 8px;
+}
+
+.withinTarget {
+    background-color: var(--success-light);
+    color: var(--success);
+}
+
+.outsideTarget {
+    background-color: var(--danger-light);
+    color: #f87171;
 }
 
 .loadingContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--background);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: var(--background);
 }
 
 .loadingSpinner {
-  width: 40px;
-  height: 40px;
-  border: 3px solid rgba(255, 255, 255, 0.1);
-  border-top: 3px solid var(--accent);
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin-bottom: 20px;
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e5e7eb;
+    border-top: 3px solid var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
 }
 
 .loadingBar {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--card-bg);
-  border-radius: var(--border-radius);
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 14px;
-  font-weight: 500;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f9fafb;
+    border-radius: var(--border-radius);
+    color: #6b7280;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.statusIndicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 100px;
+    background-color: var(--success-light);
+    color: var(--success);
+    font-size: 14px;
+    font-weight: 500;
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
-  .graphWrapper {
-    height: auto;
-    padding: 40px 16px 16px;
-    flex-direction: column;
-  }
-  
-  .graphTitle {
-    width: 100%;
-    text-align: center;
-    left: 0;
-  }
-
-  .infoDetail {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .infoDetail span {
-    width: 100%;
-    text-align: center;
-  }
+    .content {
+        padding: 16px;
+    }
+    
+    .repCardsContainer {
+        grid-template-columns: 1fr;
+    }
+    
+    .exerciseTitle {
+        font-size: 20px;
+    }
 }
