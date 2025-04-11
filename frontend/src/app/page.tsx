@@ -14,6 +14,7 @@ export default function Home() {
   const [numReps, setNumReps] = useState("5");
   const [maxVelocity, setMaxVelocity] = useState("0.9");
   const [minVelocity, setMinVelocity] = useState("0.7");
+  const [exerciseError, setExerciseError] = useState(false);
 
   // Prefetch dashboard page
   useEffect(() => {
@@ -23,9 +24,10 @@ export default function Home() {
   const handleStart = async () => {
     // Check that an exercise is selected
     if (!selectedExercise) {
-      alert("Please select an exercise before starting!")
+      setExerciseError(true);
       return;
     }
+    setExerciseError(false);
 
     // check that no values are negative
     const reps = Number(numReps);
@@ -110,9 +112,12 @@ export default function Home() {
             <label className={styles.formLabel}>Exercise</label>
             <div className={styles.selectWrapper}>
               <select 
-                className={styles.selectInput}
+                className={`${styles.selectInput} ${exerciseError ? styles.errorInput : ''}`}
                 value={selectedExercise}
-                onChange={(e) => setSelectedExercise(e.target.value)}
+                onChange={(e) => {
+                  setSelectedExercise(e.target.value);
+                  setExerciseError(false);
+                }}
               >
                 <option value="" disabled>Select an exercise</option>
                 <option value="Squats">Squats</option>
@@ -127,6 +132,9 @@ export default function Home() {
                 </svg>
               </div>
             </div>
+            {exerciseError && (
+              <div className={styles.errorMessage}>Exercise is required</div>
+            )}
           </div>
 
           <div className={styles.velocityInputs}>

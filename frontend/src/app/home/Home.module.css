@@ -198,6 +198,10 @@
   cursor: pointer;
 }
 
+.selectInput.errorInput {
+  border-color: var(--error);
+}
+
 .selectArrow {
   position: absolute;
   right: 12px;
@@ -254,6 +258,14 @@
 
 .startIcon {
   margin-left: 4px;
+}
+
+.errorMessage {
+  color: var(--error);
+  color: red;
+  font-size: 14px;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 /* Responsive styles */

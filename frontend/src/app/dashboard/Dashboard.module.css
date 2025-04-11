@@ -13,15 +13,16 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 60px;
+    height: 64px;
     background-color: white;
     color: var(--foreground);
     padding: 0 24px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     align-items: center;
     border-bottom: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    justify-content: space-between;
 }
 
 .headerLogo {
@@ -50,28 +51,30 @@
 }
 
 .leftDiv {
+    flex: 1;
     justify-content: flex-start;
-    min-width: 100px;
 }
 
 .centerDiv {
-    flex: 1;
+    flex: 2;
     justify-content: center;
+    text-align: center;
 }
 
 .rightDiv {
+    flex: 1;
     justify-content: flex-end;
-    min-width: 100px;
+    gap: 16px;
 }
 
 .backButton {
     display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 8px 16px;
-    background-color: white;
-    color: var(--foreground);
-    border: 1px solid var(--border-color);
+    gap: 8px;
+    padding: 8px 12px;
+    background-color: transparent;
+    color: #111827;
+    border: none;
     border-radius: 6px;
     font-size: 14px;
     font-weight: 500;
@@ -86,6 +89,20 @@
 .backIcon {
     width: 16px;
     height: 16px;
+}
+
+.pageTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pageTitleHighlight {
+    color: #6B7280;
+    font-weight: 500;
 }
 
 .content {
@@ -118,20 +135,54 @@
     font-size: 14px;
 }
 
+.graphHeader {
+    margin-bottom: 16px;
+}
+
+.graphTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.graphSubtitle {
+    font-size: 14px;
+    color: #6B7280;
+}
+
 .graphContainer {
-    background-color: white;
-    border-radius: var(--border-radius);
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: var(--shadow-md);
-    border: 1px solid var(--border-color);
+    background: white;
+    border-radius: 8px;
+    padding: 24px;
+    border: 1px solid #E5E7EB;
 }
 
 .graphWrapper {
     height: 400px;
     width: 100%;
-    position: relative;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+}
+
+.graphLegend {
+    display: flex;
+    gap: 24px;
+    padding: 16px 0 0;
+    border-top: 1px solid #E5E7EB;
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.legendDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
 }
 
 .repCardsContainer {
@@ -227,11 +278,11 @@
 .statusIndicator {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 6px 12px;
-    border-radius: 100px;
-    background-color: var(--success-light);
-    color: var(--success);
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #1D4ED8;
+    color: white;
     font-size: 14px;
     font-weight: 500;
 }
@@ -254,4 +305,243 @@
     .exerciseTitle {
         font-size: 20px;
     }
+}
+
+/* View Toggle */
+.viewToggle {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    background-color: #F3F4F6;
+    padding: 2px;
+    border-radius: 6px;
+}
+
+.viewToggleButton {
+    padding: 6px 12px;
+    background: transparent;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6B7280;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.viewToggleButton.active {
+    background-color: white;
+    color: #111827;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* End Session Button */
+.endSessionButton {
+    padding: 8px 16px;
+    background-color: #EF4444;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.endSessionButton:hover {
+    background-color: #DC2626;
+}
+
+/* Devices Grid */
+.devicesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    padding: 24px;
+}
+
+.deviceCard {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #E5E7EB;
+}
+
+.deviceHeader {
+    margin-bottom: 16px;
+}
+
+.deviceTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.deviceSubtitle {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.deviceMetrics {
+    margin-bottom: 20px;
+}
+
+.metricRow {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.metricLabel {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.metricValue {
+    font-size: 14px;
+    font-weight: 500;
+    color: #111827;
+}
+
+.miniGraph {
+    width: 100%;
+    height: 200px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .devicesGrid {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+
+    .viewToggle {
+        display: none;
+    }
+
+    .endSessionButton {
+        display: none;
+    }
+}
+
+.deviceTabs {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #E5E7EB;
+    padding-bottom: 2px;
+}
+
+.deviceTab {
+    padding: 8px 0;
+    color: #6B7280;
+    font-size: 14px;
+    font-weight: 500;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.deviceTab:hover {
+    color: #111827;
+}
+
+.deviceTab.active {
+    color: #111827;
+}
+
+.deviceTab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #2563EB;
+    border-radius: 2px;
+}
+
+.metricsGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.metricCard {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #E5E7EB;
+}
+
+.metricCardHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.metricCardIcon {
+    width: 20px;
+    height: 20px;
+    color: #6B7280;
+}
+
+.metricCardTitle {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.metricCardValue {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.metricCardSubtext {
+    font-size: 14px;
+    color: #6B7280;
+}
+
+.progressBar {
+    width: 100%;
+    height: 4px;
+    background-color: #E5E7EB;
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background-color: #22C55E;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.velocityRangeValues {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.velocityMin {
+    color: #EF4444;
+    font-weight: 500;
+}
+
+.velocityMax {
+    color: #F59E0B;
+    font-weight: 500;
+}
+
+.velocityRangeSeparator {
+    color: #6B7280;
 }

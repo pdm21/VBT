@@ -28,6 +28,8 @@ export default function Dashboard() {
   const [csvData, setCsvData] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialized, setIsInitialized] = useState(false);
+  const [viewMode, setViewMode] = useState<'all' | 'single'>('all');
+  const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
   const lastCsvContent = useRef<string>("");
   const pollingInterval = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(false);
@@ -38,6 +40,16 @@ export default function Dashboard() {
   const maxVelocity = Number(searchParams.get('maxV')) || 1.0;
   const minVelocity = Number(searchParams.get('minV')) || 0.0;
   
+  // Mock data for multiple devices (in real implementation, this would come from actual devices)
+  const devices = [1, 2, 3, 4, 5].map(id => ({
+    id,
+    data: csvData,
+    exercise,
+    numReps,
+    maxVelocity,
+    minVelocity
+  }));
+
   // Initialize CSV file with zeros
   useEffect(() => {
     const initializeCsv = async () => {
@@ -189,148 +201,295 @@ export default function Dashboard() {
             <svg className={styles.backIcon} viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
             </svg>
-            Back
+            Back to Setup
           </button>
         </div>
         
         <div className={styles.centerDiv}>
-          {/* Center empty for balance */}
+          <h1 className={styles.pageTitle}>
+            bench <span className={styles.pageTitleHighlight}>- Velocity Tracking</span>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 6L15 12M15 6L9 12" stroke="#FCD34D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </h1>
         </div>
         
         <div className={styles.rightDiv}>
-          <div className={styles.statusIndicator}>
-            <svg viewBox="0 0 20 20" width="16" height="16" fill="currentColor">
-              <path fillRule="evenodd" d="M5.05 3.636a1 1 0 010 1.414 7 7 0 000 9.9 1 1 0 11-1.414 1.414 9 9 0 010-12.728 1 1 0 011.414 0zm9.9 0a1 1 0 011.414 0 9 9 0 010 12.728 1 1 0 11-1.414-1.414 7 7 0 000-9.9 1 1 0 010-1.414zM7.879 6.464a1 1 0 010 1.414 3 3 0 000 4.243 1 1 0 11-1.415 1.414 5 5 0 010-7.07 1 1 0 011.415 0zm4.242 0a1 1 0 011.415 0 5 5 0 010 7.072 1 1 0 01-1.415-1.415 3 3 0 000-4.242 1 1 0 010-1.415zM10 9a1 1 0 011 1v.01a1 1 0 11-2 0V10a1 1 0 011-1z" clipRule="evenodd" />
-            </svg>
-            Connected to VBT
+          <div className={styles.viewToggle}>
+            <button
+              className={`${styles.viewToggleButton} ${viewMode === 'all' ? styles.active : ''}`}
+              onClick={() => setViewMode('all')}
+            >
+              All Devices
+            </button>
+            <button
+              className={`${styles.viewToggleButton} ${viewMode === 'single' ? styles.active : ''}`}
+              onClick={() => setViewMode('single')}
+            >
+              Single View
+            </button>
           </div>
+          
+          <div className={styles.statusIndicator}>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 3.5V4.5M8 7.5V12.5M4 8H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Sensor Connected
+          </div>
+          
+          <button className={styles.endSessionButton} onClick={handleBackClick}>
+            End Session
+          </button>
         </div>
       </header>
       
       <div className={styles.content}>
-        {/* Exercise Header */}
-        <div className={styles.exerciseHeader}>
-          <h1 className={styles.exerciseTitle}>{exercise}</h1>
-          <p className={styles.exerciseParams}>
-            Target velocity: {minVelocity} - {maxVelocity} m/s • Reps: {repData.length}/{numReps}
-          </p>
-        </div>
-        
-        {/* Graph Container */}
-        <div className={styles.graphContainer}>
-          <div className={styles.graphWrapper}>
-            <Plot
-              data={[
-                {
-                  x: labels,
-                  y: csvData,
-                  type: 'bar',
-                  marker: {
-                    color: barColors
-                  },
-                  hovertemplate: '%{y:.2f} m/s<extra></extra>'
-                }
-              ]}
-              layout={{
-                title: '',
-                showlegend: false,
-                autosize: true,
-                margin: { l: 50, r: 20, t: 20, b: 40 },
-                paper_bgcolor: 'rgba(0,0,0,0)',
-                plot_bgcolor: 'rgba(0,0,0,0)',
-                xaxis: {
-                  gridcolor: '#e5e7eb',
-                  zerolinecolor: '#e5e7eb'
-                },
-                yaxis: {
-                  title: 'Velocity (m/s)',
-                  gridcolor: '#e5e7eb',
-                  zerolinecolor: '#e5e7eb'
-                },
-                annotations: [
-                  {
-                    x: 0,
-                    y: minVelocity,
-                    xref: 'x',
-                    yref: 'y',
-                    text: 'Min',
-                    showarrow: false,
-                    font: {
-                      size: 12,
-                      color: 'rgba(74, 123, 252, 1)'
-                    },
-                    bgcolor: 'white',
-                    borderpad: 2,
-                    xanchor: 'left',
-                    xshift: -120
-                  },
-                  {
-                    x: 0,
-                    y: maxVelocity,
-                    xref: 'x',
-                    yref: 'y',
-                    text: 'Max',
-                    showarrow: false,
-                    font: {
-                      size: 12,
-                      color: 'rgba(74, 123, 252, 1)'
-                    },
-                    bgcolor: 'white',
-                    borderpad: 2,
-                    xanchor: 'left',
-                    xshift: -120
-                  }
-                ],
-                shapes: [
-                  {
-                    type: 'line',
-                    x0: -0.5,
-                    x1: numReps - 0.5,
-                    y0: minVelocity,
-                    y1: minVelocity,
-                    line: {
-                      color: 'rgba(74, 123, 252, 0.8)',
-                      width: 2,
-                      dash: 'dot'
-                    }
-                  },
-                  {
-                    type: 'line',
-                    x0: -0.5,
-                    x1: numReps - 0.5,
-                    y0: maxVelocity,
-                    y1: maxVelocity,
-                    line: {
-                      color: 'rgba(74, 123, 252, 0.8)',
-                      width: 2,
-                      dash: 'dot'
-                    }
-                  }
-                ]
-              }}
-              config={{
-                displayModeBar: false,
-                responsive: true
-              }}
-              style={{ width: '100%', height: '100%' }}
-            />
-          </div>
-
-          {/* Rep Cards */}
-          <div className={styles.repCardsContainer}>
-            {repData.map((rep) => (
-              <div key={rep.id} className={styles.repCard}>
-                <h3 className={styles.repCardTitle}>Rep {rep.rep}</h3>
-                <div className={styles.repVelocity}>
-                  {rep.velocity.toFixed(2)} <span className={styles.velocityUnit}>m/s</span>
+        {viewMode === 'all' ? (
+          <div className={styles.devicesGrid}>
+            {devices.map((device, index) => {
+              const completedReps = csvData.filter(v => v > 0).length;
+              const avgVelocity = csvData.reduce((a, b) => a + b, 0) / (completedReps || 1);
+              
+              return (
+                <div
+                  key={device.id}
+                  className={styles.deviceCard}
+                  onClick={() => {
+                    setSelectedDevice(device.id);
+                    setViewMode('single');
+                  }}
+                >
+                  <div className={styles.deviceHeader}>
+                    <h3 className={styles.deviceTitle}>Device {device.id} - Athlete {device.id}</h3>
+                    <div className={styles.deviceSubtitle}>bench - Velocity Tracking</div>
+                  </div>
+                  
+                  <div className={styles.deviceMetrics}>
+                    <div className={styles.metricRow}>
+                      <span className={styles.metricLabel}>Reps</span>
+                      <span className={styles.metricValue}>{completedReps}/{numReps}</span>
+                    </div>
+                    <div className={styles.metricRow}>
+                      <span className={styles.metricLabel}>Avg</span>
+                      <span className={styles.metricValue}>{avgVelocity.toFixed(2)} m/s</span>
+                    </div>
+                  </div>
+                  
+                  <div className={styles.miniGraph}>
+                    <Plot
+                      data={[
+                        {
+                          type: 'bar',
+                          x: labels,
+                          y: csvData,
+                          marker: {
+                            color: barColors
+                          },
+                          hoverinfo: 'y',
+                          showlegend: false
+                        }
+                      ]}
+                      layout={{
+                        margin: { t: 10, r: 10, l: 40, b: 30 },
+                        yaxis: {
+                          range: [0, 1.5],
+                          tickformat: '.2f',
+                          fixedrange: true
+                        },
+                        xaxis: {
+                          fixedrange: true
+                        },
+                        paper_bgcolor: 'transparent',
+                        plot_bgcolor: 'transparent',
+                        bargap: 0.3
+                      }}
+                      config={{
+                        displayModeBar: false,
+                        responsive: true
+                      }}
+                      style={{ width: '100%', height: '100%' }}
+                    />
+                  </div>
                 </div>
-                <div className={`${styles.targetStatus} ${rep.isWithinTarget ? styles.withinTarget : styles.outsideTarget}`}>
-                  {rep.isWithinTarget ? 'Within target range' : 'Outside target range'}
+              );
+            })}
+          </div>
+        ) : (
+          <>
+            {/* Device Tabs */}
+            <div className={styles.deviceTabs}>
+              {devices.map((device) => (
+                <button
+                  key={device.id}
+                  className={`${styles.deviceTab} ${selectedDevice === device.id ? styles.active : ''}`}
+                  onClick={() => setSelectedDevice(device.id)}
+                >
+                  Device {device.id}
+                </button>
+              ))}
+            </div>
+
+            {/* Metrics Grid */}
+            <div className={styles.metricsGrid}>
+              {/* Exercise Card */}
+              <div className={styles.metricCard}>
+                <div className={styles.metricCardHeader}>
+                  <svg className={styles.metricCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 19h16M4 5h16M9 12h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  <span className={styles.metricCardTitle}>Exercise</span>
+                </div>
+                <div className={styles.metricCardValue}>bench - Athlete {selectedDevice}</div>
+                <div className={styles.metricCardSubtext}>Target: {minVelocity.toFixed(2)} - {maxVelocity.toFixed(2)} m/s</div>
+              </div>
+
+              {/* Completed Reps Card */}
+              <div className={styles.metricCard}>
+                <div className={styles.metricCardHeader}>
+                  <svg className={styles.metricCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className={styles.metricCardTitle}>Completed Reps</span>
+                </div>
+                <div className={styles.metricCardValue}>{repData.filter(r => r.velocity > 0).length}</div>
+                <div className={styles.progressBar}>
+                  <div 
+                    className={styles.progressBarFill} 
+                    style={{ 
+                      width: `${(repData.filter(r => r.isWithinTarget && r.velocity > 0).length / repData.filter(r => r.velocity > 0).length) * 100}%` 
+                    }}
+                  />
+                </div>
+                <div className={styles.metricCardSubtext}>
+                  {Math.round((repData.filter(r => r.isWithinTarget && r.velocity > 0).length / repData.filter(r => r.velocity > 0).length) * 100) || 0}% in target
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
+
+              {/* Average Velocity Card */}
+              <div className={styles.metricCard}>
+                <div className={styles.metricCardHeader}>
+                  <svg className={styles.metricCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 7h8m-8 10h8M3 17l6-6-6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  <span className={styles.metricCardTitle}>Average Velocity</span>
+                </div>
+                <div className={styles.metricCardValue}>
+                  {(repData.reduce((acc, rep) => acc + rep.velocity, 0) / repData.filter(r => r.velocity > 0).length || 0).toFixed(2)}
+                </div>
+                <div className={styles.metricCardSubtext}>meters/second</div>
+              </div>
+
+              {/* Velocity Range Card */}
+              <div className={styles.metricCard}>
+                <div className={styles.metricCardHeader}>
+                  <svg className={styles.metricCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 7h18M3 12h18M3 17h18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  </svg>
+                  <span className={styles.metricCardTitle}>Velocity Range</span>
+                </div>
+                <div className={styles.velocityRangeValues}>
+                  <span className={styles.velocityMin}>
+                    {Math.min(...repData.filter(r => r.velocity > 0).map(r => r.velocity)).toFixed(2)}
+                  </span>
+                  <span className={styles.velocityRangeSeparator}>to</span>
+                  <span className={styles.velocityMax}>
+                    {Math.max(...repData.filter(r => r.velocity > 0).map(r => r.velocity)).toFixed(2)}
+                  </span>
+                </div>
+                <div className={styles.metricCardSubtext}>min/max m/s</div>
+              </div>
+            </div>
+
+            {/* Graph Title */}
+            <div className={styles.graphHeader}>
+              <h2 className={styles.graphTitle}>Rep Velocity - Device {selectedDevice}</h2>
+              <div className={styles.graphSubtitle}>Real-time velocity tracking for Athlete {selectedDevice}</div>
+            </div>
+
+            {/* Graph Container */}
+            <div className={styles.graphContainer}>
+              <div className={styles.graphWrapper}>
+                <Plot
+                  data={[
+                    {
+                      x: labels,
+                      y: csvData,
+                      type: 'bar',
+                      marker: {
+                        color: barColors
+                      },
+                      hovertemplate: '%{y:.2f} m/s<extra></extra>'
+                    }
+                  ]}
+                  layout={{
+                    autosize: true,
+                    margin: { l: 50, r: 20, t: 20, b: 40 },
+                    paper_bgcolor: 'rgba(0,0,0,0)',
+                    plot_bgcolor: 'rgba(0,0,0,0)',
+                    xaxis: {
+                      title: 'Repetition',
+                      gridcolor: '#e5e7eb',
+                      zerolinecolor: '#e5e7eb'
+                    },
+                    yaxis: {
+                      title: 'Velocity (m/s)',
+                      range: [0, 1.5],
+                      gridcolor: '#e5e7eb',
+                      zerolinecolor: '#e5e7eb'
+                    },
+                    shapes: [
+                      {
+                        type: 'line',
+                        x0: -0.5,
+                        x1: numReps - 0.5,
+                        y0: minVelocity,
+                        y1: minVelocity,
+                        line: {
+                          color: 'rgba(74, 123, 252, 0.8)',
+                          width: 1,
+                          dash: 'dot'
+                        }
+                      },
+                      {
+                        type: 'line',
+                        x0: -0.5,
+                        x1: numReps - 0.5,
+                        y0: maxVelocity,
+                        y1: maxVelocity,
+                        line: {
+                          color: 'rgba(74, 123, 252, 0.8)',
+                          width: 1,
+                          dash: 'dot'
+                        }
+                      }
+                    ]
+                  }}
+                  config={{
+                    displayModeBar: false,
+                    responsive: true
+                  }}
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
+
+              {/* Legend */}
+              <div className={styles.graphLegend}>
+                <div className={styles.legendItem}>
+                  <span className={styles.legendDot} style={{ backgroundColor: '#EF4444' }}></span>
+                  Below Target
+                </div>
+                <div className={styles.legendItem}>
+                  <span className={styles.legendDot} style={{ backgroundColor: '#22C55E' }}></span>
+                  Within Target
+                </div>
+                <div className={styles.legendItem}>
+                  <span className={styles.legendDot} style={{ backgroundColor: '#F59E0B' }}></span>
+                  Above Target
+                </div>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </main>
   );
