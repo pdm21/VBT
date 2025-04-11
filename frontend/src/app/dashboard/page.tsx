@@ -24,13 +24,13 @@ export default function Dashboard() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { socket } = useSocket();
+  const [deviceData, setDeviceData] = useState<{ [key: number]: number[] }>({});
   const [repData, setRepData] = useState<RepData[]>([]);
-  const [csvData, setCsvData] = useState<number[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialized, setIsInitialized] = useState(false);
   const [viewMode, setViewMode] = useState<'all' | 'single'>('all');
   const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
-  const lastCsvContent = useRef<string>("");
+  const lastCsvContents = useRef<{ [key: number]: string }>({});
   const pollingInterval = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(false);
 
@@ -40,17 +40,17 @@ export default function Dashboard() {
   const maxVelocity = Number(searchParams.get('maxV')) || 1.0;
   const minVelocity = Number(searchParams.get('minV')) || 0.0;
   
-  // Mock data for multiple devices (in real implementation, this would come from actual devices)
+  // Mock data for multiple devices
   const devices = [1, 2, 3, 4, 5].map(id => ({
     id,
-    data: csvData,
+    data: deviceData[id] || Array(numReps).fill(0),
     exercise,
     numReps,
     maxVelocity,
     minVelocity
   }));
 
-  // Initialize CSV file with zeros
+  // Initialize CSV files with zeros
   useEffect(() => {
     const initializeCsv = async () => {
       if (initialized.current) return;
@@ -59,33 +59,42 @@ export default function Dashboard() {
         // Create content with numReps zeros
         const zeros = Array(numReps).fill("0.00").join('\n');
         
-        // Send request to update CSV file
-        const response = await fetch('/api/initialize-csv', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ 
-            content: zeros,
-            numReps: numReps 
-          }),
-        });
+        // Initialize each device's CSV file
+        for (let deviceId = 1; deviceId <= 5; deviceId++) {
+          const response = await fetch('/api/initialize-csv', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ 
+              content: zeros,
+              numReps: numReps,
+              deviceId: deviceId
+            }),
+          });
 
-        if (!response.ok) {
-          throw new Error('Failed to initialize CSV file');
+          if (!response.ok) {
+            throw new Error(`Failed to initialize CSV file for device ${deviceId}`);
+          }
         }
 
         initialized.current = true;
-        console.log(`CSV initialized with ${numReps} zeros`);
+        console.log('CSV files initialized with zeros');
         
         // Set initial state
-        setCsvData(Array(numReps).fill(0));
+        const initialData = Object.fromEntries(
+          Array.from({ length: 5 }, (_, i) => [i + 1, Array(numReps).fill(0)])
+        );
+        setDeviceData(initialData);
         setIsLoading(false);
         setIsInitialized(true);
       } catch (error) {
-        console.error('Error initializing CSV:', error);
+        console.error('Error initializing CSV files:', error);
         // Still set initial state even if file write fails
-        setCsvData(Array(numReps).fill(0));
+        const initialData = Object.fromEntries(
+          Array.from({ length: 5 }, (_, i) => [i + 1, Array(numReps).fill(0)])
+        );
+        setDeviceData(initialData);
         setIsLoading(false);
         setIsInitialized(true);
       }
@@ -98,50 +107,63 @@ export default function Dashboard() {
   useEffect(() => {
     const loadCsvData = async () => {
       try {
-        const response = await fetch('/velocity_data.csv', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'text/csv',
-            'Cache-Control': 'no-cache, no-store, must-revalidate',
-            'Pragma': 'no-cache',
-            'Expires': '0'
-          },
-        });
-        
-        if (!response.ok) {
-          throw new Error(`Failed to load CSV data: ${response.status} ${response.statusText}`);
-        }
-        
-        const text = await response.text();
-        
-        // Only update if the content has changed
-        if (text !== lastCsvContent.current) {
-          console.log('CSV data changed:', text);
-          lastCsvContent.current = text;
+        const newDeviceData: { [key: number]: number[] } = {};
+
+        // Load data for each device
+        for (let deviceId = 1; deviceId <= 5; deviceId++) {
+          const response = await fetch(`/velocity_data_Device${deviceId}.csv`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'text/csv',
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            },
+          });
           
-          const rows = text.split('\n').filter(row => row.trim() !== '');
-          const velocities = rows.map(row => parseFloat(row.trim()));
+          if (!response.ok) {
+            throw new Error(`Failed to load CSV data for device ${deviceId}: ${response.status} ${response.statusText}`);
+          }
           
-          // Filter out any NaN values
-          const validVelocities = velocities.filter(v => !isNaN(v));
+          const text = await response.text();
           
-          if (validVelocities.length === 0) {
-            // If no valid data yet, use zeros
-            setCsvData(Array(numReps).fill(0));
-          } else {
-            // Take only the number of velocities specified by numReps
-            const selectedVelocities = validVelocities.slice(0, numReps);
-            // If we have fewer velocities than numReps, pad with zeros
-            while (selectedVelocities.length < numReps) {
-              selectedVelocities.push(0);
+          // Only update if the content has changed
+          if (text !== lastCsvContents.current[deviceId]) {
+            console.log(`CSV data changed for device ${deviceId}:`, text);
+            lastCsvContents.current[deviceId] = text;
+            
+            const rows = text.split('\n').filter(row => row.trim() !== '');
+            const velocities = rows.map(row => parseFloat(row.trim()));
+            
+            // Filter out any NaN values
+            const validVelocities = velocities.filter(v => !isNaN(v));
+            
+            if (validVelocities.length === 0) {
+              // If no valid data yet, use zeros
+              newDeviceData[deviceId] = Array(numReps).fill(0);
+            } else {
+              // Take only the number of velocities specified by numReps
+              const selectedVelocities = validVelocities.slice(0, numReps);
+              // If we have fewer velocities than numReps, pad with zeros
+              while (selectedVelocities.length < numReps) {
+                selectedVelocities.push(0);
+              }
+              newDeviceData[deviceId] = selectedVelocities;
             }
-            setCsvData(selectedVelocities);
+          } else {
+            // Use existing data if no changes
+            newDeviceData[deviceId] = deviceData[deviceId] || Array(numReps).fill(0);
           }
         }
+
+        setDeviceData(newDeviceData);
       } catch (error) {
         console.error('Error loading CSV data:', error);
-        // If there's an error, keep using zeros
-        setCsvData(Array(numReps).fill(0));
+        // If there's an error, keep using zeros for all devices
+        const errorData = Object.fromEntries(
+          Array.from({ length: 5 }, (_, i) => [i + 1, Array(numReps).fill(0)])
+        );
+        setDeviceData(errorData);
       }
     };
 
@@ -154,12 +176,13 @@ export default function Dashboard() {
         clearInterval(pollingInterval.current);
       }
     };
-  }, [numReps]);
+  }, [numReps, deviceData]);
 
-  // Process CSV data into rep data
+  // Process CSV data into rep data for selected device
   useEffect(() => {
-    if (!isLoading) {
-      const newRepData = csvData.map((velocity, index) => ({
+    if (!isLoading && selectedDevice) {
+      const deviceVelocities = deviceData[selectedDevice] || Array(numReps).fill(0);
+      const newRepData = deviceVelocities.map((velocity, index) => ({
         id: index + 1,
         rep: index + 1,
         velocity,
@@ -168,7 +191,7 @@ export default function Dashboard() {
       
       setRepData(newRepData);
     }
-  }, [csvData, minVelocity, maxVelocity, isLoading]);
+  }, [deviceData, selectedDevice, minVelocity, maxVelocity, isLoading]);
   
   const handleBackClick = () => {
     const path = "/";
@@ -187,11 +210,6 @@ export default function Dashboard() {
 
   // Prepare graph data
   const labels = Array.from({ length: numReps }, (_, i) => `Rep ${i + 1}`);
-  const barColors = csvData.map(val => 
-    val >= minVelocity && val <= maxVelocity 
-      ? 'rgb(70, 202, 129)' // Green for values within range
-      : 'rgb(243, 164, 167)' // Red for values outside range
-  );
 
   return (
     <main className={styles.main}>
@@ -246,9 +264,10 @@ export default function Dashboard() {
       <div className={styles.content}>
         {viewMode === 'all' ? (
           <div className={styles.devicesGrid}>
-            {devices.map((device, index) => {
-              const completedReps = csvData.filter(v => v > 0).length;
-              const avgVelocity = csvData.reduce((a, b) => a + b, 0) / (completedReps || 1);
+            {devices.map((device) => {
+              const deviceVelocities = deviceData[device.id] || Array(numReps).fill(0);
+              const completedReps = deviceVelocities.filter(v => v > 0).length;
+              const avgVelocity = deviceVelocities.reduce((a, b) => a + b, 0) / (completedReps || 1);
               
               return (
                 <div
@@ -281,9 +300,13 @@ export default function Dashboard() {
                         {
                           type: 'bar',
                           x: labels,
-                          y: csvData,
+                          y: deviceVelocities,
                           marker: {
-                            color: barColors
+                            color: deviceVelocities.map(val => 
+                              val >= minVelocity && val <= maxVelocity 
+                                ? 'rgb(70, 202, 129)'
+                                : 'rgb(243, 164, 167)'
+                            )
                           },
                           hoverinfo: 'y',
                           showlegend: false
@@ -413,10 +436,15 @@ export default function Dashboard() {
                   data={[
                     {
                       x: labels,
-                      y: csvData,
+                      y: selectedDevice ? deviceData[selectedDevice] : Array(numReps).fill(0),
                       type: 'bar',
                       marker: {
-                        color: barColors
+                        color: (selectedDevice ? deviceData[selectedDevice] : Array(numReps).fill(0))
+                          .map(val => 
+                            val >= minVelocity && val <= maxVelocity 
+                              ? 'rgb(70, 202, 129)'
+                              : 'rgb(243, 164, 167)'
+                          )
                       },
                       hovertemplate: '%{y:.2f} m/s<extra></extra>'
                     }
@@ -446,8 +474,7 @@ export default function Dashboard() {
                         y1: minVelocity,
                         line: {
                           color: 'rgba(74, 123, 252, 0.8)',
-                          width: 1,
-                          dash: 'dot'
+                          width: 5,
                         }
                       },
                       {
@@ -458,8 +485,7 @@ export default function Dashboard() {
                         y1: maxVelocity,
                         line: {
                           color: 'rgba(74, 123, 252, 0.8)',
-                          width: 1,
-                          dash: 'dot'
+                          width: 5,
                         }
                       }
                     ]
