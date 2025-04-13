@@ -29,7 +29,7 @@ export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
   const [isInitialized, setIsInitialized] = useState(false);
   const [viewMode, setViewMode] = useState<'all' | 'single'>('all');
-  const [selectedDevice, setSelectedDevice] = useState<number | null>(null);
+  const [selectedDevice, setSelectedDevice] = useState<number>(1);
   const lastCsvContents = useRef<{ [key: number]: string }>({});
   const pollingInterval = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(false);
@@ -180,7 +180,7 @@ export default function Dashboard() {
 
   // Process CSV data into rep data for selected device
   useEffect(() => {
-    if (!isLoading && selectedDevice) {
+    if (!isLoading) {
       const deviceVelocities = deviceData[selectedDevice] || Array(numReps).fill(0);
       const newRepData = deviceVelocities.map((velocity, index) => ({
         id: index + 1,
@@ -199,6 +199,42 @@ export default function Dashboard() {
     router.push(path);
   };
 
+  const handleReset = async () => {
+    try {
+      // Create content with numReps zeros
+      const zeros = Array(numReps).fill("0.00").join('\n');
+      
+      // Reset each device's CSV file
+      for (let deviceId = 1; deviceId <= 5; deviceId++) {
+        const response = await fetch('/api/initialize-csv', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ 
+            content: zeros,
+            numReps: numReps,
+            deviceId: deviceId
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to reset CSV file for device ${deviceId}`);
+        }
+      }
+
+      // Reset the device data state
+      const resetData = Object.fromEntries(
+        Array.from({ length: 5 }, (_, i) => [i + 1, Array(numReps).fill(0)])
+      );
+      setDeviceData(resetData);
+      
+      console.log('All devices reset successfully');
+    } catch (error) {
+      console.error('Error resetting devices:', error);
+    }
+  };
+
   if (!isInitialized) {
     return (
       <div className={styles.loadingContainer}>
@@ -215,11 +251,16 @@ export default function Dashboard() {
     <main className={styles.main}>
       <header className={styles.header}>
         <div className={styles.leftDiv}>
-          <button className={styles.backButton} onClick={handleBackClick}>
-            <svg className={styles.backIcon} viewBox="0 0 20 20" fill="currentColor">
-              <path fillRule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clipRule="evenodd" />
+          <button className={styles.resetButton} onClick={handleReset}>
+            <svg className={styles.resetIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H4" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              />
             </svg>
-            Back to Setup
+            Reset Session
           </button>
         </div>
         
@@ -242,7 +283,10 @@ export default function Dashboard() {
             </button>
             <button
               className={`${styles.viewToggleButton} ${viewMode === 'single' ? styles.active : ''}`}
-              onClick={() => setViewMode('single')}
+              onClick={() => {
+                setViewMode('single');
+                setSelectedDevice(1);
+              }}
             >
               Single View
             </button>
@@ -303,9 +347,11 @@ export default function Dashboard() {
                           y: deviceVelocities,
                           marker: {
                             color: deviceVelocities.map(val => 
-                              val >= minVelocity && val <= maxVelocity 
-                                ? 'rgb(70, 202, 129)'
-                                : 'rgb(243, 164, 167)'
+                              val < minVelocity 
+                                ? 'rgb(239, 68, 68)' // red for below target
+                                : val > maxVelocity
+                                  ? 'rgb(245, 158, 11)' // yellow for above target
+                                  : 'rgb(34, 197, 94)' // green for within target
                             )
                           },
                           hoverinfo: 'y',
@@ -324,7 +370,31 @@ export default function Dashboard() {
                         },
                         paper_bgcolor: 'transparent',
                         plot_bgcolor: 'transparent',
-                        bargap: 0.3
+                        bargap: 0.3,
+                        shapes: [
+                          {
+                            type: 'line',
+                            x0: -0.5,
+                            x1: numReps - 0.5,
+                            y0: minVelocity,
+                            y1: minVelocity,
+                            line: {
+                              color: 'rgba(74, 123, 252, 0.8)',
+                              width: 2,
+                            }
+                          },
+                          {
+                            type: 'line',
+                            x0: -0.5,
+                            x1: numReps - 0.5,
+                            y0: maxVelocity,
+                            y1: maxVelocity,
+                            line: {
+                              color: 'rgba(74, 123, 252, 0.8)',
+                              width: 2,
+                            }
+                          }
+                        ]
                       }}
                       config={{
                         displayModeBar: false,
@@ -441,9 +511,11 @@ export default function Dashboard() {
                       marker: {
                         color: (selectedDevice ? deviceData[selectedDevice] : Array(numReps).fill(0))
                           .map(val => 
-                            val >= minVelocity && val <= maxVelocity 
-                              ? 'rgb(70, 202, 129)'
-                              : 'rgb(243, 164, 167)'
+                            val < minVelocity 
+                              ? 'rgb(239, 68, 68)' // red for below target
+                              : val > maxVelocity
+                                ? 'rgb(245, 158, 11)' // yellow for above target
+                                : 'rgb(34, 197, 94)' // green for within target
                           )
                       },
                       hovertemplate: '%{y:.2f} m/s<extra></extra>'

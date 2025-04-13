@@ -545,3 +545,27 @@
 .velocityRangeSeparator {
     color: #6B7280;
 }
+
+.resetButton {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background-color: #2563EB;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.resetButton:hover {
+    background-color: #1D4ED8;
+}
+
+.resetIcon {
+    width: 16px;
+    height: 16px;
+}
