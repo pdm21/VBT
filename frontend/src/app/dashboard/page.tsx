@@ -251,25 +251,20 @@ export default function Dashboard() {
     <main className={styles.main}>
       <header className={styles.header}>
         <div className={styles.leftDiv}>
-          <button className={styles.resetButton} onClick={handleReset}>
-            <svg className={styles.resetIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m0 0H4" 
-                stroke="currentColor" 
-                strokeWidth="2" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-              />
-            </svg>
-            Reset Session
-          </button>
+          <div className={styles.headerLogo}>
+            <img 
+              src="/VBT_Logo_White.png" 
+              alt="VBT Logo" 
+              width={100} 
+              height={50}
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
         </div>
         
         <div className={styles.centerDiv}>
           <h1 className={styles.pageTitle}>
-            bench <span className={styles.pageTitleHighlight}>- Velocity Tracking</span>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 6L15 12M15 6L9 12" stroke="#FCD34D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+            {exercise} <span className={styles.pageTitleHighlight}>- Velocity Tracking</span>
           </h1>
         </div>
         
@@ -292,12 +287,12 @@ export default function Dashboard() {
             </button>
           </div>
           
-          <div className={styles.statusIndicator}>
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 3.5V4.5M8 7.5V12.5M4 8H12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <button className={styles.resetButton} onClick={handleReset}>
+            <svg className={styles.resetIcon} viewBox="0 0 20 20" fill="currentColor">
+              <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
             </svg>
-            Sensor Connected
-          </div>
+            Reset
+          </button>
           
           <button className={styles.endSessionButton} onClick={handleBackClick}>
             End Session
@@ -324,13 +319,13 @@ export default function Dashboard() {
                 >
                   <div className={styles.deviceHeader}>
                     <h3 className={styles.deviceTitle}>Device {device.id} - Athlete {device.id}</h3>
-                    <div className={styles.deviceSubtitle}>bench - Velocity Tracking</div>
+                    <div className={styles.deviceSubtitle}>{device.exercise} - Velocity Tracking</div>
                   </div>
                   
                   <div className={styles.deviceMetrics}>
                     <div className={styles.metricRow}>
                       <span className={styles.metricLabel}>Reps</span>
-                      <span className={styles.metricValue}>{completedReps}/{numReps}</span>
+                      <span className={styles.metricValue}>{completedReps}/{device.numReps}</span>
                     </div>
                     <div className={styles.metricRow}>
                       <span className={styles.metricLabel}>Avg</span>
@@ -347,9 +342,9 @@ export default function Dashboard() {
                           y: deviceVelocities,
                           marker: {
                             color: deviceVelocities.map(val => 
-                              val < minVelocity 
+                              val < device.minVelocity 
                                 ? 'rgb(239, 68, 68)' // red for below target
-                                : val > maxVelocity
+                                : val > device.maxVelocity
                                   ? 'rgb(245, 158, 11)' // yellow for above target
                                   : 'rgb(34, 197, 94)' // green for within target
                             )
@@ -375,9 +370,9 @@ export default function Dashboard() {
                           {
                             type: 'line',
                             x0: -0.5,
-                            x1: numReps - 0.5,
-                            y0: minVelocity,
-                            y1: minVelocity,
+                            x1: device.numReps - 0.5,
+                            y0: device.minVelocity,
+                            y1: device.minVelocity,
                             line: {
                               color: 'rgba(74, 123, 252, 0.8)',
                               width: 2,
@@ -386,9 +381,9 @@ export default function Dashboard() {
                           {
                             type: 'line',
                             x0: -0.5,
-                            x1: numReps - 0.5,
-                            y0: maxVelocity,
-                            y1: maxVelocity,
+                            x1: device.numReps - 0.5,
+                            y0: device.maxVelocity,
+                            y1: device.maxVelocity,
                             line: {
                               color: 'rgba(74, 123, 252, 0.8)',
                               width: 2,
@@ -432,7 +427,7 @@ export default function Dashboard() {
                   </svg>
                   <span className={styles.metricCardTitle}>Exercise</span>
                 </div>
-                <div className={styles.metricCardValue}>bench - Athlete {selectedDevice}</div>
+                <div className={styles.metricCardValue}>{deviceData[selectedDevice][0] ? deviceData[selectedDevice][0].toFixed(2) : 'N/A'}</div>
                 <div className={styles.metricCardSubtext}>Target: {minVelocity.toFixed(2)} - {maxVelocity.toFixed(2)} m/s</div>
               </div>
 

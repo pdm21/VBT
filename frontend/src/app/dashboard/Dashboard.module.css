@@ -29,9 +29,13 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--primary);
+    height: 50px;
+}
+
+.headerLogo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
 }
 
 .logoIcon {
