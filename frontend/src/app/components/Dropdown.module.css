@@ -1,44 +1,64 @@
 .dropdown {
     position: relative;
-    /* display: inline-block; */
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .dropdownButton {
-    background-color: rgb(224, 224, 224);
-    color: rgb(0, 0, 0);
-    padding: 2% 0%;
-    border: none;
+    background-color: var(--card-bg);
+    color: var(--foreground);
+    padding: 14px 24px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     cursor: pointer;
-    border-radius: 5%;
-    font-size: xx-large;
-    margin-top: 35%;
-    font-style: bold;
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    margin-top: 40px;
+    font-weight: 500;
+    width: 300px;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dropdownButton:hover {
+    background-color: #2a2a2c;
+    transform: scale(1.02);
 }
 
 .dropdownMenu {
     position: absolute;
-    top: 100%; 
+    top: calc(100% + 8px);
     left: 50%;
     transform: translateX(-50%);
-    background: white;
-    padding: 0;
+    background: var(--card-bg);
+    padding: 8px 0;
     margin: 0;
-    border: 10px solid #ddd;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     list-style: none;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    width: 300px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .dropdownMenu li {
-    padding: 10px;
-    width: 100px;
-    border: 2px solid black;
+    padding: 12px 16px;
     cursor: pointer;
-    color: black;
+    color: var(--foreground);
+    transition: background-color 0.2s ease;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
 }
 
 .dropdownMenu li:hover {
-    background-color: lightgray;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dropdownMenu li:active {
+    background-color: rgba(44, 212, 85, 0.2);
 }
 
