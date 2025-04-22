@@ -1,18 +1,14 @@
 "use client";
+import dynamic from 'next/dynamic';
 import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import dynamic from 'next/dynamic';
 import styles from "./Dashboard.module.css";
-import fs from 'fs';
-import path from 'path';
 import { useSocket } from "../contexts/SocketContext";
-import Plot from 'react-plotly.js';
 
-interface VelocityHistory {
-  value: number;
-  timestamp: number;
-}
+// Import Plot dynamically with ssr disabled
+const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
+// Define RepData type
 interface RepData {
   id: number;
   rep: number;
@@ -20,10 +16,10 @@ interface RepData {
   isWithinTarget: boolean;
 }
 
-export default function Dashboard() {
+function DashboardContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { socket } = useSocket();
+  const { socket, isConnected, deviceType } = useSocket();
   const [deviceData, setDeviceData] = useState<{ [key: number]: number[] }>({});
   const [repData, setRepData] = useState<RepData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -178,6 +174,27 @@ export default function Dashboard() {
     };
   }, [numReps, deviceData]);
 
+  // Add effect to handle real-time velocity updates
+  useEffect(() => {
+    if (!socket) return;
+
+    socket.on('velocity_update', (data: { deviceId: number, velocities: number[] }) => {
+      setDeviceData(prev => ({
+        ...prev,
+        [data.deviceId]: data.velocities
+      }));
+    });
+
+    socket.on('reset_request', () => {
+      handleReset();
+    });
+
+    return () => {
+      socket.off('velocity_update');
+      socket.off('reset_request');
+    };
+  }, [socket]);
+
   // Process CSV data into rep data for selected device
   useEffect(() => {
     if (!isLoading) {
@@ -195,7 +212,10 @@ export default function Dashboard() {
   
   const handleBackClick = () => {
     const path = "/";
-    socket?.emit('navigate', path);
+    socket?.emit('sessionState', {
+      page: 'home',
+      params: {}
+    });
     router.push(path);
   };
 
@@ -228,6 +248,9 @@ export default function Dashboard() {
         Array.from({ length: 5 }, (_, i) => [i + 1, Array(numReps).fill(0)])
       );
       setDeviceData(resetData);
+      
+      // Notify other clients about the reset
+      socket?.emit('reset_request');
       
       console.log('All devices reset successfully');
     } catch (error) {
@@ -423,13 +446,13 @@ export default function Dashboard() {
               <div className={styles.metricCard}>
                 <div className={styles.metricCardHeader}>
                   <svg className={styles.metricCardIcon} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M4 19h16M4 5h16M9 12h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M4 19h16M4 5h16M9 12h6" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
                   </svg>
                   <span className={styles.metricCardTitle}>Exercise</span>
                 </div>
-                <div className={styles.metricCardValue}>{deviceData[selectedDevice][0] ? deviceData[selectedDevice][0].toFixed(2) : 'N/A'}</div>
+                <div className={styles.metricCardValue}>{exercise}</div>
                 <div className={styles.metricCardSubtext}>Target: {minVelocity.toFixed(2)} - {maxVelocity.toFixed(2)} m/s</div>
-              </div>
+                </div>
 
               {/* Completed Reps Card */}
               <div className={styles.metricCard}>
@@ -585,6 +608,19 @@ export default function Dashboard() {
         )}
       </div>
     </main>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={
+      <div className={styles.loadingContainer}>
+        <div className={styles.loadingSpinner}></div>
+        <p>Loading dashboard...</p>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
   );
 }
 

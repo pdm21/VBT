@@ -65,7 +65,8 @@
   flex-direction: column;
   gap: 16px;
   justify-content: center;
-  min-height: 100%;
+  min-height: 55%;
+  max-width: fit-content;
 }
 
 .sensorCard {
@@ -144,9 +145,11 @@
 
 .mainContent {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 40px;
+  grid-template-columns: max-content 1fr;
+  align-items: stretch;
+  gap: 24px;
   width: 100%;
+  align-items: start;
 }
 
 /* Status card */
@@ -157,7 +160,7 @@
   padding: 20px;
   box-shadow: var(--shadow-md);
   width: 100%;
-  max-width: 600px;
+  max-width: 400px;
   margin-bottom: 20px;
 }
 
@@ -332,8 +335,15 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
+  .contentWrapper {
+    padding: 10px 16px;
+  }
+
   .mainContent {
     grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 600px;
+    margin: 0 auto;
   }
   
   .sensorsColumn {
@@ -351,7 +361,103 @@
 
   .heroSection {
     padding-top: 20px;
+    margin-bottom: 24px;
+  }
+
+  .sensorCard {
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+/* iPad-specific optimizations */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .mainContent {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 16px;
+  }
+
+  .contentWrapper {
+    max-width: 900px;
+  }
+
+  .sensorCard {
+    padding: 14px;
+    height: 100%;
+  }
+
+  .setupCard {
+    height: 100%;
+  }
+
+  /* Ensure both columns maintain equal height */
+  .sensorsColumn,
+  .setupColumn {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+/* iPad Portrait Mode */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+  .mainContent {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    align-items: stretch;
+    max-width: 700px;
+    margin: 0 auto;
+    gap: 24px;
+    max-height: 10px;
+  }
+
+  .contentWrapper {
+    padding: 16px;
+  }
+
+  .sensorCard {
+    max-height: fit-content;
+  }
+
+  .setupCard,
+  .sensorCard {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .sensorsColumn {
+    gap: 16px;
+    margin-top: 0;
+  }
+
+  .heroSection {
     margin-bottom: 32px;
+  }
+
+  .velocityInputs {
+    gap: 12px;
+  }
+}
+
+/* Ensure consistent spacing and sizing across orientations */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .heroTitle {
+    font-size: 24px;
+  }
+
+  .heroSubtitle {
+    font-size: 15px;
+    max-width: 500px;
+  }
+
+  .setupTitle,
+  .statusTitle {
+    font-size: 17px;
+  }
+
+  .setupSubtitle {
+    font-size: 13px;
   }
 }
 

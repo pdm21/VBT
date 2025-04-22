@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function Home() {
   const router = useRouter();
-  const { socket } = useSocket();
+  const { socket, isConnected, deviceType } = useSocket();
   const [isLoading, setIsLoading] = useState(false);
 
   const [selectedExercise, setSelectedExercise] = useState("");
@@ -42,8 +42,16 @@ export default function Home() {
     setIsLoading(true);
     const path = `/dashboard?exercise=${selectedExercise}&reps=${reps}&maxV=${maxV}&minV=${minV}`;
     
-    // Emit navigation event to all other clients
-    socket?.emit('navigate', path);
+    // Emit session state to sync all clients
+    socket?.emit('sessionState', {
+      page: 'dashboard',
+      params: {
+        exercise: selectedExercise,
+        reps,
+        maxV,
+        minV
+      }
+    });
     
     // Navigate locally
     router.push(path);
@@ -51,6 +59,21 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
+      {/* Connection Status */}
+      <div className={`${styles.connectionStatus} ${isConnected ? styles.connected : styles.disconnected}`}>
+        {isConnected ? (
+          <>
+            <span className={styles.statusDot}></span>
+            Connected ({deviceType === 'host' ? 'Host' : 'Client'})
+          </>
+        ) : (
+          <>
+            <span className={styles.statusDot}></span>
+            Disconnected - Check Connection
+          </>
+        )}
+      </div>
+
       {/* Header with logo and status */}
       <header className={styles.header}>
         <div className={styles.headerLogo}>
@@ -189,4 +212,4 @@ export default function Home() {
       </div>
     </main>
   );
-} 
+}
