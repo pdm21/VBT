@@ -20,8 +20,14 @@ else
   echo "Warning: No Arduino device found. Please connect the Arduino and try again."
 fi
 
-echo "Server will be available at: http://$IP:3001"
-echo "Use this address on your iPad's browser"
+# Output URL in a specific format for Automator to parse
+echo "SERVER_URL=http://$IP:3001"
 
-# Start the server in production mode
-npm run start:prod
+# Start the server in production mode in the background
+npm run start:prod &
+
+# Wait for server to start (adjust the sleep duration if needed)
+sleep 5
+
+# Open the browser (this will be handled by Automator)
+echo "Server is ready!"

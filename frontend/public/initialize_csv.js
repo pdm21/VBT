@@ -6,13 +6,13 @@ const path = require('path');
 const numReps = parseInt(process.argv[2]) || 5;
 
 // Create an array of zeros with length numReps
-const zeros = Array(numReps).fill(0).map(() => "0.00");
-const initialContent = zeros.join('\n');
+// const zeros = Array(numReps).fill(0).map(() => "0.00");
+// const initialContent = zeros.join('\n');
 
 // Path to the CSV file in the public directory
-const csvPath = path.join(__dirname, 'velocity_data.csv');
+// const csvPath = path.join(__dirname, 'velocity_data.csv');
 
 // Write the initial content to the file
-fs.writeFileSync(csvPath, initialContent);
+// fs.writeFileSync(csvPath, initialContent);
 
-console.log(`CSV file initialized with ${numReps} zeros.`); 
+// console.log(`CSV file initialized with ${numReps} zeros.`); 

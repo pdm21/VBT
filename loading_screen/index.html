@@ -1,0 +1,71 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title>Loading VBT</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 20vh;
+      background-color: #f9f9f9;
+    }
+    .spinner {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #3498db;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="spinner"></div>
+  <h2>Loading your VBT Homepage...</h2>
+  <p>This will open automatically once it's ready.</p>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>VBT Loading</title>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        font-family: sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f4;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Loading VBT Dashboard...</h1>
+      <p>Please wait while the server starts.</p>
+    </div>
+    <script>
+      async function checkApp() {
+        try {
+          const res = await fetch("/", { cache: "no-store" });
+          const text = await res.text();
+          if (text.includes("<title>")) {
+            window.location.reload();
+          }
+        } catch (e) {
+          // Do nothing if fetch fails
+        }
+      }
+
+      setInterval(checkApp, 2000); // Check every 2 seconds
+    </script>
+  </body>
+</html>

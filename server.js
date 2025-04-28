@@ -5,6 +5,7 @@ const { Server } = require('socket.io');
 const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 const config = require('./config');
+const os = require('os');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, dir: './frontend' });
@@ -13,6 +14,22 @@ const handle = app.getRequestHandler();
 // Track connected clients and their roles
 const clients = new Map();
 
+// Function to get all non-internal IP addresses
+function getNetworkIPs() {
+  const interfaces = os.networkInterfaces();
+  const addresses = [];
+  
+  for (const iface of Object.values(interfaces)) {
+    for (const addr of iface || []) {
+      if (addr.family === 'IPv4' && !addr.internal) {
+        addresses.push(addr.address);
+      }
+    }
+  }
+  
+  return addresses;
+}
+
 app.prepare().then(() => {
   const expressApp = express();
   const server = createServer(expressApp);
@@ -20,7 +37,9 @@ app.prepare().then(() => {
     cors: {
       origin: "*",
       methods: ["GET", "POST"]
-    }
+    },
+    pingTimeout: 60000, // Increase ping timeout
+    pingInterval: 25000 // Increase ping interval
   });
 
   // Socket.IO connection handling
@@ -48,6 +67,11 @@ app.prepare().then(() => {
       console.log('Client disconnected:', socket.id);
       clients.delete(socket.id);
     });
+
+    // Handle reconnection
+    socket.on('error', (error) => {
+      console.error('Socket error:', error);
+    });
   });
 
   // Arduino Serial Port setup
@@ -60,10 +84,8 @@ app.prepare().then(() => {
 
     const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 
-    // Handle data from Arduino
     parser.on('data', (data) => {
       try {
-        // Assuming the Arduino sends data in the format: "deviceId,velocity"
         const [deviceId, velocity] = data.trim().split(',').map(Number);
         
         if (!isNaN(deviceId) && !isNaN(velocity)) {
@@ -91,11 +113,17 @@ app.prepare().then(() => {
   });
 
   // Start server
-  server.listen(config.port, (err) => {
+  server.listen(config.port, '0.0.0.0', (err) => {
     if (err) throw err;
-    console.log(`> Ready on http://${config.serverIp}:${config.port}`);
-    console.log('To access from iPad or other devices on the same network:');
-    console.log(`1. Make sure you're connected to the same WiFi network`);
-    console.log(`2. Open http://${config.serverIp}:${config.port} in your browser`);
+    
+    const networkIPs = getNetworkIPs();
+    console.log('\nServer is accessible at:');
+    networkIPs.forEach(ip => {
+      console.log(`http://${ip}:${config.port}`);
+    });
+    
+    console.log('\nTo access from other devices on the same network:');
+    console.log('1. Make sure you\'re connected to the same WiFi network');
+    console.log(`2. Open any of the above URLs in your browser`);
   });
 });
