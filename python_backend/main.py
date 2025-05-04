@@ -22,4 +22,3 @@ def api_reset(request: DeviceRequest):
 @app.post("/end")
 def api_end(request: DeviceRequest):
     return end_session(request.device_ip)
-
