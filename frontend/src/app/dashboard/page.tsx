@@ -50,6 +50,7 @@ function DashboardContent() {
 
   // Add a mock list of connected devices for testing purposes
   const connectedDevices = [1, 2, 3]; // Change this array to simulate connected devices
+  // Need to return an array of connected devices from the API call
 
   // Filter devices to only include connected ones
   const filteredDevices = devices.filter(device => connectedDevices.includes(device.id));
