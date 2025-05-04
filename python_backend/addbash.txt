@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Navigate to the backend folder
+cd "$(dirname "$0")/python_backend"
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Start FastAPI server in background (log optional)
+uvicorn main:app --host 0.0.0.0 --port 8000 > ../logs/python_backend.log 2>&1 &
+
+# Optionally store the process ID
+echo $! > ../logs/python_backend.pid
+
+# Return to root of project (if needed)
+cd ..
+
+# Start frontend (or whatever other logic you already have here)
+# Example: npm run dev or whatever launcher command
+
