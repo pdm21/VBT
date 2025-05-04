@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Dynamically determine the script's directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # Load NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -9,7 +12,7 @@ nvm use 20.18.3 > /dev/null 2>&1
 
 # Set up environment
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-PROJECT_DIR="/Users/juderouhana/Desktop/CS/Senior Thesis/VBT"
+PROJECT_DIR="$SCRIPT_DIR"
 
 # Function to check if server is responding
 check_server() {
