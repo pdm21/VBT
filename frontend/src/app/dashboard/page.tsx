@@ -27,6 +27,7 @@ function DashboardContent() {
   const [isInitialized, setIsInitialized] = useState(false);
   const [viewMode, setViewMode] = useState<'all' | 'single'>('all');
   const [selectedDevice, setSelectedDevice] = useState<number>(1);
+  const [workoutStarted, setWorkoutStarted] = useState(false);
   const lastCsvContents = useRef<{ [key: number]: string }>({});
   const pollingInterval = useRef<NodeJS.Timeout | null>(null);
   const initialized = useRef(false);
@@ -275,10 +276,20 @@ function DashboardContent() {
       return;
     }
     
+    setWorkoutStarted(true);
     toast.success('Starting workout session');
     socket?.emit('sessionState', {
       page: 'dashboard',
       params: { workoutStarted: 'true' }
+    });
+  };
+
+  const handleStopWorkout = () => {
+    setWorkoutStarted(false);
+    toast.success('Workout session stopped');
+    socket?.emit('sessionState', {
+      page: 'dashboard',
+      params: { workoutStarted: 'false' }
     });
   };
 
@@ -306,13 +317,22 @@ function DashboardContent() {
               height={50}
               style={{ objectFit: 'contain' }}
             />
-            <button
-              className={styles.startWorkoutButton}
-              onClick={handleStartWorkout}
-              disabled={!isConnected}
-            >
-              Start Workout
-            </button>
+            {workoutStarted ? (
+              <button
+                className={styles.stopWorkoutButton}
+                onClick={handleStopWorkout}
+              >
+                Stop Workout
+              </button>
+            ) : (
+              <button
+                className={styles.startWorkoutButton}
+                onClick={handleStartWorkout}
+                disabled={!isConnected}
+              >
+                Start Workout
+              </button>
+            )}
           </div>
         </div>
         
