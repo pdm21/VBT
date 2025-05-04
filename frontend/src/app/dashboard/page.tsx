@@ -48,6 +48,12 @@ function DashboardContent() {
     minVelocity
   }));
 
+  // Add a mock list of connected devices for testing purposes
+  const connectedDevices = [1, 2, 3]; // Change this array to simulate connected devices
+
+  // Filter devices to only include connected ones
+  const filteredDevices = devices.filter(device => connectedDevices.includes(device.id));
+
   // Initialize CSV files with zeros
   useEffect(() => {
     const initializeCsv = async () => {
@@ -377,7 +383,7 @@ function DashboardContent() {
       <div className={styles.content}>
         {viewMode === 'all' ? (
           <div className={styles.devicesGrid}>
-            {devices.map((device) => {
+            {filteredDevices.map((device) => {
               const deviceVelocities = deviceData[device.id] || Array(numReps).fill(0);
               const completedReps = deviceVelocities.filter(v => v > 0).length;
               const avgVelocity = deviceVelocities.reduce((a, b) => a + b, 0) / (completedReps || 1);
