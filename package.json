@@ -15,15 +15,15 @@
     "start:prod": "npm run build && npm start"
   },
   "dependencies": {
+    "@serialport/parser-readline": "^12.0.0",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
     "next": "^14.0.1",
+    "react-hot-toast": "^2.5.2",
     "serialport": "^12.0.0",
-    "@serialport/parser-readline": "^12.0.0",
-    "socket.io": "^4.7.2",
-    "cors": "^2.8.5"
+    "socket.io": "^4.7.2"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
   }
 }
-

@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./Dashboard.module.css";
 import { useSocket } from "../contexts/SocketContext";
+import { toast, Toaster } from "react-hot-toast";
 
 // Import Plot dynamically with ssr disabled
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
@@ -210,19 +211,25 @@ function DashboardContent() {
     }
   }, [deviceData, selectedDevice, minVelocity, maxVelocity, isLoading]);
   
-  const handleBackClick = () => {
+  const handleBackClick = async () => {
+    toast.success('Session ended. Returning to home page.');
     const path = "/";
     socket?.emit('sessionState', {
       page: 'home',
       params: {}
     });
-    router.push(path);
+    setTimeout(() => {
+      router.push(path);
+    }, 1000);
   };
 
   const handleReset = async () => {
     try {
       // Create content with numReps zeros
       const zeros = Array(numReps).fill("0.00").join('\n');
+      
+      // Show loading toast
+      const loadingToast = toast.loading('Resetting data...');
       
       // Reset each device's CSV file
       for (let deviceId = 1; deviceId <= 5; deviceId++) {
@@ -252,13 +259,23 @@ function DashboardContent() {
       // Notify other clients about the reset
       socket?.emit('reset_request');
       
-      console.log('All devices reset successfully');
+      // Dismiss loading toast and show success
+      toast.dismiss(loadingToast);
+      toast.success('All devices reset successfully');
+      
     } catch (error) {
       console.error('Error resetting devices:', error);
+      toast.error('Failed to reset devices');
     }
   };
 
   const handleStartWorkout = () => {
+    if (!isConnected) {
+      toast.error('Cannot start workout: Device not connected');
+      return;
+    }
+    
+    toast.success('Starting workout session');
     socket?.emit('sessionState', {
       page: 'dashboard',
       params: { workoutStarted: 'true' }
@@ -634,6 +651,7 @@ export default function Dashboard() {
       </div>
     }>
       <DashboardContent />
+      <Toaster position="bottom-right" />
     </Suspense>
   );
 }
