@@ -258,6 +258,13 @@ function DashboardContent() {
     }
   };
 
+  const handleStartWorkout = () => {
+    socket?.emit('sessionState', {
+      page: 'dashboard',
+      params: { workoutStarted: 'true' }
+    });
+  };
+
   if (!isInitialized) {
     return (
       <div className={styles.loadingContainer}>
@@ -282,6 +289,13 @@ function DashboardContent() {
               height={50}
               style={{ objectFit: 'contain' }}
             />
+            <button
+              className={styles.startWorkoutButton}
+              onClick={handleStartWorkout}
+              disabled={!isConnected}
+            >
+              Start Workout
+            </button>
           </div>
         </div>
         

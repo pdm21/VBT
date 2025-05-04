@@ -291,6 +291,28 @@
     font-weight: 500;
 }
 
+.startWorkoutButton {
+    background-color: #2563EB;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: 16px;
+}
+
+.startWorkoutButton:hover {
+    background-color: #1D4ED8;
+}
+
+.startWorkoutButton:disabled {
+    background-color: #9CA3AF;
+    cursor: not-allowed;
+}
+
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
