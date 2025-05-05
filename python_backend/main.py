@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 import socket
 import time
 import struct
+# need to install pandas and numpy on the virtual environment
 
 app = FastAPI()
 
@@ -52,6 +53,31 @@ def connect_all_devices():
             acc -= grav
             dps[dev].append((acc, t))
 
+def find_max_vels(dps, nreps=10):
+    df = pd.DataFrame(dps, columns=['acc', 't'])
+    is_done = False
+    
+    dt = df['t'].diff().shift(-1, fill_value=0) / 1000.0
+    vel = 9.8 * np.round(df['acc'] * dt, decimals=4).cumsum()
+
+    streak = ((vel > 0.1).ne((vel > 0.1).shift()).cumsum().to_frame().groupby(0).cumcount()) * ((vel > 0.1) * 2 - 1)
+
+    (inds,) = np.where(streak == -20)
+    inds -= 20
+    inds = inds[1:]
+    if len(inds) >= nreps+1:
+        is_done = True
+    else:
+        inds = inds[:nreps+1]
+        
+    max_vel = np.zeros(nreps)
+    for i, (start, stop) in enumerate(zip(inds, inds[1:])):
+        max_vel[i] = max(vel[start:stop])
+        # max_vel.append(max(vel[start:stop]))
+
+    return np.array(max_vel), is_done, vel
+    # np.array is the values we were putting into the csv
+
 
 
 @app.post("/start-session")
@@ -91,3 +117,4 @@ async def end_session():
         # server.close()
     return {"message": "Session ended."}
 
+# make global variables to store sockets and servers
