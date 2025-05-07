@@ -46,47 +46,34 @@ Route (app)                              Size     First Load JS
 
 
 Server is accessible at:
-http://150.209.40.102:3001
+http://192.168.0.100:3001
 
 To access from other devices on the same network:
 1. Make sure you're connected to the same WiFi network
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
- ○ Compiling / ...
- ✓ Compiled / in 947ms (590 modules)
- GET / 200 in 1247ms
-Client connected: PdOonXZJ8E9dtnPDAAAC
+ ✓ Compiled / in 461ms (590 modules)
+ GET / 200 in 569ms
+Client connected: GtKDw8Ly3SjLXPc5AAAC
+ ✓ Compiled /favicon.ico in 152ms (363 modules)
+ GET /favicon.ico 200 in 185ms
  ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 1135ms (636 modules)
- ✓ Compiled /api/initialize-csv in 166ms (382 modules)
- POST /api/initialize-csv 200 in 227ms
- POST /api/initialize-csv 200 in 228ms
- POST /api/initialize-csv 200 in 13ms
- POST /api/initialize-csv 200 in 12ms
- POST /api/initialize-csv 200 in 8ms
- POST /api/initialize-csv 200 in 8ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- ✓ Compiled in 2.3s (636 modules)
- ✓ Compiled in 575ms (636 modules)
- ✓ Compiled in 253ms (636 modules)
- ✓ Compiled /api/initialize-csv in 82ms (382 modules)
- POST /api/initialize-csv 200 in 131ms
- POST /api/initialize-csv 200 in 134ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
+ ✓ Compiled /dashboard in 3.1s (678 modules)
+ ✓ Compiled /api/initialize-csv in 171ms (411 modules)
+ POST /api/initialize-csv 200 in 194ms
+ POST /api/initialize-csv 200 in 204ms
  POST /api/initialize-csv 200 in 4ms
  POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 15ms
  POST /api/initialize-csv 200 in 6ms
- ✓ Compiled in 224ms (664 modules)
- ✓ Compiled in 311ms (664 modules)
- ✓ Compiled in 283ms (664 modules)
- ✓ Compiled in 196ms (664 modules)
- ✓ Compiled in 354ms (636 modules)
- ✓ Compiled in 370ms (636 modules)
- ✓ Compiled in 274ms (636 modules)
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 5ms
+Client disconnected: GtKDw8Ly3SjLXPc5AAAC
+sh: line 1: 32085 Terminated: 15          npm start
