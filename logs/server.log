@@ -26,7 +26,7 @@
    Collecting build traces ...
 
 Route (app)                              Size     First Load JS
-┌ ○ /                                    3.46 kB         103 kB
+┌ ○ /                                    3.52 kB         103 kB
 ├ ○ /_not-found                          873 B          88.1 kB
 ├ ƒ /api/initialize-csv                  0 B                0 B
 ├ ○ /dashboard                           11.2 kB         111 kB
@@ -53,34 +53,49 @@ To access from other devices on the same network:
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
  ○ Compiling / ...
- ✓ Compiled / in 583ms (590 modules)
- GET / 200 in 695ms
-Client connected: LEHVAxmWycSVg6USAAAC
+ ✓ Compiled / in 509ms (590 modules)
+ GET / 200 in 618ms
+Client connected: YeXW2hfK8XBVM_KhAAAC
  ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 606ms (636 modules)
- ✓ Compiled /api/initialize-csv in 94ms (382 modules)
- POST /api/initialize-csv 200 in 141ms
- POST /api/initialize-csv 200 in 148ms
+ ✓ Compiled /dashboard in 581ms (636 modules)
+ ✓ Compiled /api/initialize-csv in 72ms (382 modules)
+ POST /api/initialize-csv 200 in 122ms
+ POST /api/initialize-csv 200 in 123ms
  POST /api/initialize-csv 200 in 5ms
  POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 11ms
- POST /api/initialize-csv 200 in 11ms
- POST /api/initialize-csv 200 in 35ms
- POST /api/initialize-csv 200 in 34ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 24ms
- POST /api/initialize-csv 200 in 23ms
- POST /api/initialize-csv 200 in 16ms
+ POST /api/initialize-csv 200 in 9ms
  POST /api/initialize-csv 200 in 8ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 13ms
+ POST /api/initialize-csv 200 in 12ms
  POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 11ms
+ POST /api/initialize-csv 200 in 11ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 35ms
+ POST /api/initialize-csv 200 in 35ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 10ms
+ POST /api/initialize-csv 200 in 9ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 5ms
  POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 7ms
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 4ms

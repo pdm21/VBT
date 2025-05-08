@@ -71,6 +71,23 @@ export default function Home() {
     // =================================================
 
     try {
+      // Clear CSV files first
+      const clearResponse = await fetch(
+        "http://192.168.0.100:8000/clear_csvs",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const clearData = await clearResponse.json();
+      if (clearData.status !== "success") {
+        console.warn("Warning: Failed to clear CSV files:", clearData.message);
+        // Continue anyway as this is not critical
+      }
+
       // Call the connect endpoint
       const response = await fetch("http://192.168.0.100:8000/connect", {
         method: "POST",

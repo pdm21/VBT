@@ -77,3 +77,14 @@ def stop():
     except Exception as e:
         print(f"Error while stopping workout: {e}") 
         return {"status": "error", "message": str(e)}
+    
+@app.post("/clear_csvs")
+def clear_csvs():
+    try:
+        DV.clear_csvs()  
+        print("CSV files cleared.") 
+        return {"status": "success", "message": "CSV files cleared."}
+    except Exception as e:
+        print(f"Error while clearing CSV files: {e}") 
+        return {"status": "error", "message": str(e)}
+

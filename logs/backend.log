@@ -1,39 +1,79 @@
-INFO:     Started server process [6690]
+INFO:     Started server process [8116]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     192.168.0.100:65411 - "OPTIONS /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51348 - "OPTIONS /connect HTTP/1.1" 200 OK
 Listening for VBT:4
 VBT:4 - connected
 Connected devices: [4]
-INFO:     192.168.0.100:65411 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51348 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51376 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:51376 - "POST /clear_csvs HTTP/1.1" 200 OK
 Connected devices: [4]
-INFO:     192.168.0.100:50324 - "POST /connect HTTP/1.1" 200 OK
-INFO:     192.168.0.100:50352 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51376 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51376 - "OPTIONS /do_reps HTTP/1.1" 200 OK
 VBT:4 - reps recorded
 Workout started with 5 reps.
-INFO:     192.168.0.100:50352 - "POST /do_reps HTTP/1.1" 200 OK
-INFO:     192.168.0.100:50438 - "OPTIONS /stop HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51377 - "POST /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51377 - "OPTIONS /stop HTTP/1.1" 200 OK
 Workout stopped.
-INFO:     192.168.0.100:50438 - "POST /stop HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51377 - "POST /stop HTTP/1.1" 200 OK
+Connected devices: [4]
+INFO:     192.168.0.100:51462 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:51462 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [4]
+INFO:     192.168.0.100:51462 - "POST /connect HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:51585 - "POST /stop HTTP/1.1" 200 OK
 VBT:4 - reps recorded
 Workout started with 5 reps.
-INFO:     192.168.0.100:50469 - "POST /do_reps HTTP/1.1" 200 OK
-Workout stopped.
-INFO:     192.168.0.100:50546 - "POST /stop HTTP/1.1" 200 OK
-Connected devices: [4]
-INFO:     192.168.0.100:50647 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [4]
-INFO:     192.168.0.100:50668 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51552 - "POST /do_reps HTTP/1.1" 200 OK
 VBT:4 - reps recorded
 Workout started with 5 reps.
-INFO:     192.168.0.100:50691 - "POST /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51759 - "POST /do_reps HTTP/1.1" 200 OK
 Workout stopped.
-INFO:     192.168.0.100:50797 - "POST /stop HTTP/1.1" 200 OK
+INFO:     192.168.0.100:51759 - "POST /stop HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:53457 - "POST /stop HTTP/1.1" 200 OK
 VBT:4 - reps recorded
 Workout started with 5 reps.
-INFO:     192.168.0.100:50836 - "POST /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53400 - "POST /do_reps HTTP/1.1" 200 OK
 Workout stopped.
-INFO:     192.168.0.100:50913 - "POST /stop HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53595 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:53546 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:53546 - "POST /do_reps HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:53728 - "POST /clear_csvs HTTP/1.1" 200 OK
 Connected devices: [4]
-INFO:     192.168.0.100:50942 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53728 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53934 - "OPTIONS /connect HTTP/1.1" 200 OK
+Connected devices: [4]
+INFO:     192.168.0.100:53934 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53934 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:53935 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [4]
+INFO:     192.168.0.100:53935 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:54006 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:54007 - "OPTIONS /stop HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:54007 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:54006 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:54044 - "POST /do_reps HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:54222 - "POST /stop HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:54267 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:54222 - "POST /do_reps HTTP/1.1" 200 OK
