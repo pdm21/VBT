@@ -468,11 +468,11 @@
 }
 
 .connectCard {
-  background-color: var(--primary);
-  border: 1px solid var(--primary);
+  background-color: #f8f9fc;
+  /* border: 1px solid var(--primary); */
   border-radius: var(--border-radius);
   padding: 16px;
-  box-shadow: var(--shadow-sm);
+  /* box-shadow: var(--shadow-sm); */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -481,26 +481,63 @@
   transition: background-color 0.2s;
 }
 
-.connectCard:hover {
+/* .connectCard:hover {
   background-color: var(--primary-dark);
-}
+} */
 
 .connectButton {
-  width: 100%;
-  padding: 8px;
-  background-color: transparent;
-  color: white;
-  border: none;
-  border-radius: var(--border-radius);
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .connectButton:hover {
-  background-color: transparent;
+  background-color: var(--primary-dark);
+}
+
+.connectButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.connectButton.loading {
+  position: relative;
+  color: white !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.connectButton.loading::after {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid white;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+  margin-left: 0.5rem;
+}
+
+.connectIcon {
+  transition: transform 0.2s ease;
+}
+
+.connectButton:hover .connectIcon {
+  transform: translateY(2px);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }

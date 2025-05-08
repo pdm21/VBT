@@ -26,11 +26,11 @@
    Collecting build traces ...
 
 Route (app)                              Size     First Load JS
-┌ ○ /                                    3.52 kB         103 kB
+┌ ○ /                                    3.53 kB         103 kB
 ├ ○ /_not-found                          873 B          88.1 kB
 ├ ƒ /api/initialize-csv                  0 B                0 B
 ├ ○ /dashboard                           11.2 kB         111 kB
-└ ○ /home                                2.47 kB         102 kB
+└ ○ /home                                2.48 kB         102 kB
 + First Load JS shared by all            87.2 kB
   ├ chunks/117-49a6dc114a7a33fd.js       31.6 kB
   ├ chunks/fd9d1056-b60437f45e623675.js  53.6 kB
@@ -46,56 +46,122 @@ Route (app)                              Size     First Load JS
 
 
 Server is accessible at:
-http://192.168.0.100:3001
+http://150.209.40.102:3001
 
 To access from other devices on the same network:
 1. Make sure you're connected to the same WiFi network
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
  ○ Compiling / ...
- ✓ Compiled / in 509ms (590 modules)
- GET / 200 in 618ms
-Client connected: YeXW2hfK8XBVM_KhAAAC
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 581ms (636 modules)
- ✓ Compiled /api/initialize-csv in 72ms (382 modules)
- POST /api/initialize-csv 200 in 122ms
- POST /api/initialize-csv 200 in 123ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 9ms
- POST /api/initialize-csv 200 in 8ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 13ms
- POST /api/initialize-csv 200 in 12ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 11ms
- POST /api/initialize-csv 200 in 11ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 35ms
- POST /api/initialize-csv 200 in 35ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 3ms
- POST /api/initialize-csv 200 in 3ms
- POST /api/initialize-csv 200 in 10ms
- POST /api/initialize-csv 200 in 9ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 7ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 4ms
+ ✓ Compiled / in 931ms (590 modules)
+ GET / 200 in 1158ms
+Client connected: d5pjdShviuDph1zsAAAC
+ GET / 200 in 56ms
+Client disconnected: d5pjdShviuDph1zsAAAC
+Client connected: Yo4o5MaYMrxBlp4RAAAF
+ ✓ Compiled /favicon.ico in 368ms (363 modules)
+ GET /favicon.ico 200 in 441ms
+ GET / 200 in 117ms
+Client disconnected: Yo4o5MaYMrxBlp4RAAAF
+ GET /favicon.ico 200 in 24ms
+Client connected: a7K1AWfzTnymXxYfAAAI
+ ✓ Compiled in 916ms (622 modules)
+ ✓ Compiled in 731ms (632 modules)
+ ✓ Compiled in 298ms (632 modules)
+ ✓ Compiled in 179ms (622 modules)
+ GET / 200 in 131ms
+Client disconnected: a7K1AWfzTnymXxYfAAAI
+ GET /favicon.ico 200 in 24ms
+Client connected: kw1ECo7npVUI-qDAAAAL
+Client disconnected: kw1ECo7npVUI-qDAAAAL
+ GET / 200 in 41ms
+ GET /favicon.ico 200 in 8ms
+Client connected: a-gUPr3dWx3hmeCpAAAO
+ GET / 200 in 60ms
+Client disconnected: a-gUPr3dWx3hmeCpAAAO
+ GET /favicon.ico 200 in 9ms
+Client connected: FOnQNXvmhrMC2C-TAAAR
+ ✓ Compiled in 761ms (590 modules)
+ GET / 200 in 138ms
+Client disconnected: FOnQNXvmhrMC2C-TAAAR
+Client connected: ajw1wz7NcB7XGSQ6AAAU
+ ✓ Compiled /favicon.ico in 75ms (363 modules)
+ GET /favicon.ico 200 in 119ms
+ ✓ Compiled in 307ms (632 modules)
+ ✓ Compiled in 336ms (600 modules)
+ GET / 200 in 102ms
+Client disconnected: ajw1wz7NcB7XGSQ6AAAU
+Client connected: zB6h6bmdmeCXvvVEAAAX
+ ✓ Compiled /favicon.ico in 73ms (363 modules)
+ GET /favicon.ico 200 in 122ms
+ ✓ Compiled in 551ms (632 modules)
+Client disconnected: zB6h6bmdmeCXvvVEAAAX
+ GET / 200 in 137ms
+ GET /favicon.ico 200 in 23ms
+Client connected: LsHQNl4q-bOYaUvGAAAa
+ ✓ Compiled in 290ms (632 modules)
+ GET / 200 in 93ms
+Client disconnected: LsHQNl4q-bOYaUvGAAAa
+ GET /favicon.ico 200 in 17ms
+Client connected: IOJC32MdeXe_6Lh1AAAd
+ ✓ Compiled in 176ms (632 modules)
+ ✓ Compiled in 250ms (632 modules)
+ ✓ Compiled in 207ms (632 modules)
+ ✓ Compiled in 348ms (632 modules)
+ ✓ Compiled in 226ms (632 modules)
+ ✓ Compiled in 198ms (632 modules)
+ ✓ Compiled in 138ms (600 modules)
+ ✓ Compiled in 316ms (600 modules)
+ ✓ Compiled in 231ms (600 modules)
+ GET / 200 in 104ms
+Client disconnected: IOJC32MdeXe_6Lh1AAAd
+Client connected: aBqMLMPERxEZbCysAAAg
+ ✓ Compiled /favicon.ico in 65ms (363 modules)
+ GET /favicon.ico 200 in 116ms
+ ✓ Compiled in 297ms (632 modules)
+ ✓ Compiled in 327ms (632 modules)
+ ✓ Compiled in 155ms (632 modules)
+ ✓ Compiled in 300ms (600 modules)
+ ✓ Compiled in 198ms (600 modules)
+ ✓ Compiled in 187ms (600 modules)
+ ✓ Compiled in 205ms (600 modules)
+ ✓ Compiled in 279ms (600 modules)
+ ✓ Compiled in 236ms (600 modules)
+ ✓ Compiled in 181ms (600 modules)
+ ✓ Compiled in 222ms (600 modules)
+ ✓ Compiled in 218ms (600 modules)
+ ✓ Compiled in 204ms (600 modules)
+ ✓ Compiled in 199ms (600 modules)
+ ✓ Compiled in 279ms (600 modules)
+ GET / 200 in 99ms
+Client disconnected: aBqMLMPERxEZbCysAAAg
+Client connected: QL4YLL4n7rhoUcQbAAAj
+ ✓ Compiled /favicon.ico in 194ms (363 modules)
+ GET /favicon.ico 200 in 240ms
+ ✓ Compiled in 217ms (632 modules)
+ ✓ Compiled in 343ms (632 modules)
+ ✓ Compiled in 136ms (632 modules)
+ ✓ Compiled in 729ms (590 modules)
+ ✓ Compiled in 305ms (590 modules)
+ ✓ Compiled in 281ms (590 modules)
+ ✓ Compiled in 158ms (590 modules)
+ ✓ Compiled in 167ms (590 modules)
+ ✓ Compiled in 281ms (590 modules)
+ ✓ Compiled in 423ms (600 modules)
+ GET / 200 in 118ms
+Client disconnected: QL4YLL4n7rhoUcQbAAAj
+Client connected: _zYKxeAdDtmr-XiuAAAm
+ ✓ Compiled /favicon.ico in 130ms (363 modules)
+ GET /favicon.ico 200 in 177ms
+ ✓ Compiled in 229ms (632 modules)
+ ✓ Compiled in 208ms (632 modules)
+ ✓ Compiled in 145ms (632 modules)
+ GET / 200 in 96ms
+Client disconnected: _zYKxeAdDtmr-XiuAAAm
+ GET /favicon.ico 200 in 15ms
+Client connected: di8qy8f92R8Jdr-bAAAp
+ GET / 200 in 40ms
+Client disconnected: di8qy8f92R8Jdr-bAAAp
+ GET /favicon.ico 200 in 15ms
+Client connected: jTDJhQxxR9W5gOcVAAAs
+ ✓ Compiled in 159ms (632 modules)

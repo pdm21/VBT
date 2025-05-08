@@ -9,6 +9,7 @@ export default function Home() {
   const router = useRouter();
   const { socket, isConnected, deviceType } = useSocket();
   const [isLoading, setIsLoading] = useState(false);
+  const [isConnecting, setIsConnecting] = useState(false);
 
   const listOfConnectedDevices: number[] = []; // this will be a fastapi call to get_connected that returns an array of the connected devices - ex: [3, 4]
   const [connectedDevices, setConnectedDevices] = useState<number[]>(
@@ -27,6 +28,7 @@ export default function Home() {
   }, [router]);
 
   const fetchConnectedDevices = async () => {
+    setIsConnecting(true);
     try {
       const response = await fetch("http://192.168.0.100:8000/connect", {
         method: "POST",
@@ -45,6 +47,8 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error fetching connected devices:", error);
+    } finally {
+      setIsConnecting(false);
     }
   };
 
@@ -189,10 +193,11 @@ export default function Home() {
           <div className={styles.sensorsColumn}>
             <div className={styles.connectCard}>
               <button
-                className={styles.connectButton}
+                className={`${styles.connectButton} ${isConnecting ? styles.loading : ""}`}
                 onClick={fetchConnectedDevices}
+                disabled={isConnecting}
               >
-                Connect
+                {isConnecting ? "Loading..." : "Connect VBT Devices"}
               </button>
             </div>
             {[1, 2, 3, 4, 5].map((sensorId) => (
