@@ -299,10 +299,10 @@ function DashboardContent() {
 
     try {
       // Emit socket event before API call
-      // socket?.emit("sessionState", {
-      //   page: "dashboard",
-      //   params: { workoutStarted: "true" },
-      // });
+      socket?.emit("sessionState", {
+        page: "dashboard",
+        params: { workoutStarted: "true" },
+      });
 
       const response = await fetch("http://192.168.0.100:8000/do_reps", {
         method: "POST",
@@ -354,10 +354,10 @@ function DashboardContent() {
 
       setWorkoutStarted(false);
       toast.success("Workout session stopped");
-      // socket?.emit("sessionState", {
-      //   page: "dashboard",
-      //   params: { workoutStarted: "false" },
-      // });
+      socket?.emit("sessionState", {
+        page: "dashboard",
+        params: { workoutStarted: "false" },
+      });
     } catch (error) {
       alert("Error connecting to devices. Please try again.");
       console.error("Connection error:", error);
