@@ -36,11 +36,13 @@ check_server() {
     return $result
 }
 
-# Function to get all active IP addresses
 get_ips() {
-    echo "Getting active IP addresses..."
     # More robust IP detection that excludes virtual interfaces
-    ifconfig | grep "inet " | grep -v 127.0.0.1 | grep -v "169.254" | awk '{print $2}'
+    ifconfig | grep "inet " | grep -v 127.0.0.1 | grep -v "169.254" | awk '{print $2}' | while read -r ip; do
+        if validate_ip "$ip"; then
+            echo "$ip"
+        fi
+    done
 }
 
 # Function to validate IP address
