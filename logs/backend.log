@@ -1,0 +1,16 @@
+INFO:     Started server process [67629]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+ERROR:    [Errno 48] error while attempting to bind on address ('0.0.0.0Connected devices: []
+INFO:     192.168.0.100:56833 - "POST /get_connected HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56858 - "OPTIONS /connect HTTP/1.1" 200 OK
+Listening for VBT:1
+Connected devices: [1]
+INFO:     192.168.0.100:56859 - "POST /connect HTTP/1.1" 200 OK
+VBT:1 - connected
+Connected devices: [1]
+INFO:     192.168.0.100:56858 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56922 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+VBT:1 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:56922 - "POST /do_reps HTTP/1.1" 200 OK

@@ -26,11 +26,11 @@
    Collecting build traces ...
 
 Route (app)                              Size     First Load JS
-┌ ○ /                                    3.02 kB         103 kB
+┌ ○ /                                    3.19 kB         103 kB
 ├ ○ /_not-found                          873 B          88.1 kB
 ├ ƒ /api/initialize-csv                  0 B                0 B
-├ ○ /dashboard                           10.9 kB         111 kB
-└ ○ /home                                2.25 kB         102 kB
+├ ○ /dashboard                           11.1 kB         111 kB
+└ ○ /home                                2.44 kB         102 kB
 + First Load JS shared by all            87.2 kB
   ├ chunks/117-49a6dc114a7a33fd.js       31.6 kB
   ├ chunks/fd9d1056-b60437f45e623675.js  53.6 kB
@@ -52,28 +52,33 @@ To access from other devices on the same network:
 1. Make sure you're connected to the same WiFi network
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
- ✓ Compiled / in 461ms (590 modules)
- GET / 200 in 569ms
-Client connected: GtKDw8Ly3SjLXPc5AAAC
- ✓ Compiled /favicon.ico in 152ms (363 modules)
- GET /favicon.ico 200 in 185ms
+ ✓ Compiled / in 493ms (590 modules)
+ GET / 200 in 609ms
+Client connected: x3YJPiPkkGXn42T4AAAC
  ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 3.1s (678 modules)
- ✓ Compiled /api/initialize-csv in 171ms (411 modules)
- POST /api/initialize-csv 200 in 194ms
- POST /api/initialize-csv 200 in 204ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 3ms
- POST /api/initialize-csv 200 in 3ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 3ms
- POST /api/initialize-csv 200 in 3ms
+ ✓ Compiled /dashboard in 722ms (636 modules)
+ ✓ Compiled /api/initialize-csv in 83ms (382 modules)
+ POST /api/initialize-csv 200 in 118ms
+ POST /api/initialize-csv 200 in 120ms
  POST /api/initialize-csv 200 in 15ms
+ POST /api/initialize-csv 200 in 15ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 5ms
+Client connected: G4iLsOzbl8K8lN-mAAAE
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 6ms
+ POST /api/initialize-csv 200 in 6ms
  POST /api/initialize-csv 200 in 6ms
  POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 4ms
  POST /api/initialize-csv 200 in 5ms
-Client disconnected: GtKDw8Ly3SjLXPc5AAAC
-sh: line 1: 32085 Terminated: 15          npm start
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 5ms
+ ✓ Compiled /_not-found in 217ms (667 modules)
+ GET /_next/undefined 404 in 275ms
+Client disconnected: G4iLsOzbl8K8lN-mAAAE

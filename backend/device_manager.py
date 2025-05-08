@@ -9,6 +9,7 @@ import time
 import numpy as np
 
 class DeviceManager:
+    # change this
     def __init__(self, file_format='/Users/pmargaronis/Desktop/CS410/Code/VBT/frontend/public/velocity_data_Device{}.csv'):
         self.threads = {}
         self.conts = {}

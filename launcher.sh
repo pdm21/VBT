@@ -39,6 +39,17 @@ cd "$PROJECT_DIR" || {
 # Create logs directory if it doesn't exist
 mkdir -p logs
 
+# ====================================================
+# ====================================================
+
+cd backend
+uvicorn main:app --host 0.0.0.0 --port 8000 > ../logs/backend.log 2>&1 &
+BACKEND_PID=$!
+cd ..
+
+# ====================================================
+# ====================================================
+
 # Get all IP addresses
 IPS=($(get_ips))
 
@@ -48,7 +59,8 @@ sed -i '' "s/serverIp: '.*'/serverIp: '$IP'/" config.js
 echo "NEXT_PUBLIC_SERVER_IP=$IP" > frontend/.env.local
 
 # Start the server with logging
-"$NVM_DIR/versions/node/v20.18.3/bin/npm" run start:prod > logs/server.log 2>&1 &
+# "$NVM_DIR/versions/node/v20.18.3/bin/npm" run start:prod > logs/server.log 2>&1 &
+npm run start:prod > logs/server.log 2>&1 &
 SERVER_PID=$!
 
 # Show loading notification

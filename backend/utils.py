@@ -41,8 +41,10 @@ def dps_to_max(dps, nreps):
     return find_peaks(vel, nreps)
 
 def get_online_devices():
+    # had to specify fping path here
+    # will need to be changed for other systems
     output = subprocess.run(
-        ['fping', '-c', '1', '-t', '250'] + [f'192.168.0.{ip}' for ip in range(150, 155)],
+        ['/opt/homebrew/bin/fping', '-c', '1', '-t', '250'] + [f'192.168.0.{ip}' for ip in range(150, 155)],
         capture_output=True,
     )
     return sorted([int(response[12:13])+1 for response in output.stdout.decode().split('\n')[:-1] if 'timed out' not in response])
