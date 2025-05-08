@@ -60,9 +60,23 @@ validate_ip() {
     return 1
 }
 
-# Kill any existing Node.js servers
-echo "Cleaning up any existing Node.js servers..."
-pkill -f "node server.js" || true
+# Function to check if port is in use
+check_port_in_use() {
+    local port=$1
+    if lsof -i :$port > /dev/null 2>&1; then
+        return 0  # Port is in use
+    else
+        return 1  # Port is free
+    fi
+}
+
+# Only kill processes if ports are in use
+if check_port_in_use 3001 || check_port_in_use 8000; then
+    echo "Ports 3001 or 8000 are in use. Cleaning up existing processes..."
+    kill -9 $(lsof -t -i :3001) 2>/dev/null || true
+    kill -9 $(lsof -t -i :8000) 2>/dev/null || true
+    sleep 1  # Give the system a moment to release the ports
+fi
 
 # Change to the project directory
 echo "Changing to project directory..."
