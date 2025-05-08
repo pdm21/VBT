@@ -26,11 +26,11 @@
    Collecting build traces ...
 
 Route (app)                              Size     First Load JS
-┌ ○ /                                    3.19 kB         103 kB
+┌ ○ /                                    3.25 kB         103 kB
 ├ ○ /_not-found                          873 B          88.1 kB
 ├ ƒ /api/initialize-csv                  0 B                0 B
 ├ ○ /dashboard                           11.1 kB         111 kB
-└ ○ /home                                2.44 kB         102 kB
+└ ○ /home                                2.47 kB         102 kB
 + First Load JS shared by all            87.2 kB
   ├ chunks/117-49a6dc114a7a33fd.js       31.6 kB
   ├ chunks/fd9d1056-b60437f45e623675.js  53.6 kB
@@ -46,39 +46,33 @@ Route (app)                              Size     First Load JS
 
 
 Server is accessible at:
-http://192.168.0.100:3001
+http://192.168.0.101:3001
 
 To access from other devices on the same network:
 1. Make sure you're connected to the same WiFi network
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
- ✓ Compiled / in 493ms (590 modules)
- GET / 200 in 609ms
-Client connected: x3YJPiPkkGXn42T4AAAC
- ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 722ms (636 modules)
- ✓ Compiled /api/initialize-csv in 83ms (382 modules)
- POST /api/initialize-csv 200 in 118ms
- POST /api/initialize-csv 200 in 120ms
- POST /api/initialize-csv 200 in 15ms
- POST /api/initialize-csv 200 in 15ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 5ms
-Client connected: G4iLsOzbl8K8lN-mAAAE
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 6ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- POST /api/initialize-csv 200 in 5ms
- ✓ Compiled /_not-found in 217ms (667 modules)
- GET /_next/undefined 404 in 275ms
-Client disconnected: G4iLsOzbl8K8lN-mAAAE
+ ○ Compiling / ...
+ ✓ Compiled / in 1375ms (613 modules)
+ GET / 200 in 1582ms
+ GET / 200 in 51ms
+ ✓ Compiled /favicon.ico in 359ms (363 modules)
+ GET /favicon.ico 200 in 415ms
+ ✓ Compiled in 512ms (590 modules)
+ ✓ Compiled in 191ms (590 modules)
+ GET / 200 in 153ms
+ ✓ Compiled /favicon.ico in 68ms (363 modules)
+ GET /favicon.ico 200 in 124ms
+ ✓ Compiled in 415ms (622 modules)
+ GET / 200 in 114ms
+ GET /favicon.ico 200 in 24ms
+ ✓ Compiled in 150ms (622 modules)
+ ✓ Compiled in 185ms (622 modules)
+ GET / 200 in 92ms
+ GET /favicon.ico 200 in 17ms
+ ✓ Compiled in 184ms (622 modules)
+ ✓ Compiled in 172ms (622 modules)
+ ✓ Compiled in 168ms (622 modules)
+ GET / 200 in 64ms
+ GET /favicon.ico 200 in 18ms
+ ✓ Compiled in 190ms (622 modules)

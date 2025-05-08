@@ -10,6 +10,9 @@ export default function Home() {
   const { socket, isConnected, deviceType } = useSocket();
   const [isLoading, setIsLoading] = useState(false);
 
+  const listOfConnectedDevices: number[] = []; // this will be a fastapi call to get_connected that returns an array of the connected devices - ex: [3, 4]
+  const [connectedDevices, setConnectedDevices] = useState<number[]>(listOfConnectedDevices);
+
   const [selectedExercise, setSelectedExercise] = useState("");
   const [numReps, setNumReps] = useState("5");
   const [maxVelocity, setMaxVelocity] = useState("0.9");
@@ -142,35 +145,27 @@ export default function Home() {
         <div className={styles.mainContent}>
           {/* Left column - Sensors */}
           <div className={styles.sensorsColumn}>
+            <div className={styles.connectCard}>
+              <button className={styles.connectButton}>Connect</button>
+            </div>
             {[1, 2, 3, 4, 5].map((sensorId) => (
               <div key={sensorId} className={styles.sensorCard}>
                 <div className={styles.sensorHeader}>
-                  <svg
-                    className={styles.sensorIcon}
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M5.05 3.636a1 1 0 010 1.414 7 7 0 000 9.9 1 1 0 11-1.414 1.414 9 9 0 010-12.728 1 1 0 011.414 0zm9.9 0a1 1 0 011.414 0 9 9 0 010 12.728 1 1 0 11-1.414-1.414 7 7 0 000-9.9 1 1 0 010-1.414zM7.879 6.464a1 1 0 010 1.414 3 3 0 000 4.243 1 1 0 11-1.415 1.414 5 5 0 010-7.07 1 1 0 011.415 0zm4.242 0a1 1 0 011.415 0 5 5 0 010 7.072 1 1 0 01-1.415-1.415 3 3 0 000-4.242 1 1 0 010-1.415zM10 9a1 1 0 011 1v.01a1 1 0 11-2 0V10a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
+                  <svg className={styles.sensorIcon} viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M5.05 3.636a1 1 0 010 1.414 7 7 0 000 9.9 1 1 0 11-1.414 1.414 9 9 0 010-12.728 1 1 0 011.414 0zm9.9 0a1 1 0 011.414 0 9 9 0 010 12.728 1 1 0 11-1.414-1.414 7 7 0 000-9.9 1 1 0 010-1.414zM7.879 6.464a1 1 0 010 1.414 3 3 0 000 4.243 1 1 0 11-1.415 1.414 5 5 0 010-7.07 1 1 0 011.415 0zm4.242 0a1 1 0 011.415 0 5 5 0 010 7.072 1 1 0 01-1.415-1.415 3 3 0 000-4.242 1 1 0 010-1.415zM10 9a1 1 0 011 1v.01a1 1 0 11-2 0V10a1 1 0 011-1z" clipRule="evenodd" />
                   </svg>
                   <h3 className={styles.sensorTitle}>Sensor {sensorId}</h3>
-                  <div className={styles.sensorStatus}>
-                    <svg
-                      width="12"
-                      height="12"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    Connected
+                  <div className={styles.sensorStatus} style={{ backgroundColor: connectedDevices.includes(sensorId) ? 'var(--success-light)' : 'var(--danger-light)', color: connectedDevices.includes(sensorId) ? 'var(--success)' : 'var(--danger)' }}>
+                    {connectedDevices.includes(sensorId) ? (
+                      <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                      </svg>
+                    )}
+                    {connectedDevices.includes(sensorId) ? 'Connected' : 'Disconnected'}
                   </div>
                 </div>
               </div>
