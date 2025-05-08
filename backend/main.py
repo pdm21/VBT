@@ -67,3 +67,13 @@ def do_reps(request: RepsRequest):
     except Exception as e:
         print(f"Error while setting reps: {e}") 
         return {"status": "error", "message": str(e)}
+    
+@app.post("/stop")
+def stop():
+    try:
+        DV.stop()  
+        print("Workout stopped.") 
+        return {"status": "success", "message": "Workout stopped."}
+    except Exception as e:
+        print(f"Error while stopping workout: {e}") 
+        return {"status": "error", "message": str(e)}

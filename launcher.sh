@@ -25,14 +25,37 @@ check_server() {
     local ip="$1"
     local port="$2"
     echo "Checking server at $ip:$port..."
-    nc -z -w1 "$ip" "$port" 2>/dev/null
-    return $?
+    # Increased timeout to 3 seconds and added verbose output
+    nc -z -w3 -v "$ip" "$port" 2>&1
+    local result=$?
+    if [ $result -eq 0 ]; then
+        echo "Successfully connected to $ip:$port"
+    else
+        echo "Failed to connect to $ip:$port (Error code: $result)"
+    fi
+    return $result
 }
 
 # Function to get all active IP addresses
 get_ips() {
     echo "Getting active IP addresses..."
-    ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'
+    # More robust IP detection that excludes virtual interfaces
+    ifconfig | grep "inet " | grep -v 127.0.0.1 | grep -v "169.254" | awk '{print $2}'
+}
+
+# Function to validate IP address
+validate_ip() {
+    local ip=$1
+    if [[ $ip =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+        IFS='.' read -r -a ip_parts <<< "$ip"
+        for part in "${ip_parts[@]}"; do
+            if [ "$part" -gt 255 ] || [ "$part" -lt 0 ]; then
+                return 1
+            fi
+        done
+        return 0
+    fi
+    return 1
 }
 
 # Kill any existing Node.js servers
@@ -70,8 +93,21 @@ echo "Detecting available IP addresses..."
 IPS=($(get_ips))
 echo "Found IP addresses: ${IPS[*]}"
 
-# Update config with first IP (will try others if this fails)
-IP="${IPS[0]}"
+# Update config with first valid IP
+IP=""
+for potential_ip in "${IPS[@]}"; do
+    if validate_ip "$potential_ip"; then
+        IP="$potential_ip"
+        break
+    fi
+done
+
+if [ -z "$IP" ]; then
+    echo "No valid IP address found!"
+    osascript -e 'display notification "No valid IP address found" with title "VBT Launcher Error"'
+    exit 1
+fi
+
 echo "Using primary IP: $IP"
 sed -i '' "s/serverIp: '.*'/serverIp: '$IP'/" config.js
 echo "NEXT_PUBLIC_SERVER_IP=$IP" > frontend/.env.local

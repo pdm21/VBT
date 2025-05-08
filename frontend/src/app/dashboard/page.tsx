@@ -328,13 +328,34 @@ function DashboardContent() {
     }
   };
 
-  const handleStopWorkout = () => {
-    setWorkoutStarted(false);
-    toast.success("Workout session stopped");
-    socket?.emit("sessionState", {
-      page: "dashboard",
-      params: { workoutStarted: "false" },
-    });
+  const handleStopWorkout = async () => {
+    try {
+      const response = await fetch("http://192.168.0.100:8000/stop", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (data.status !== "success") {
+        alert("Failed to stop reps: " + data.message);
+        console.log("Failure. Not Stopped");
+        return;
+      }
+      console.log("Success. Stopped reps");
+      console.log(data);
+
+      setWorkoutStarted(false);
+      toast.success("Workout session stopped");
+      socket?.emit("sessionState", {
+        page: "dashboard",
+        params: { workoutStarted: "false" },
+      });
+    } catch (error) {
+      alert("Error connecting to devices. Please try again.");
+      console.error("Connection error:", error);
+    }
   };
 
   if (!isInitialized) {
@@ -372,7 +393,7 @@ function DashboardContent() {
               <button
                 className={styles.startWorkoutButton}
                 onClick={handleStartWorkout}
-                disabled={!isConnected}
+                // disabled={!isConnected}
               >
                 Start Workout
               </button>
