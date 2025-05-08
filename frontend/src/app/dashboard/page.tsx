@@ -37,6 +37,10 @@ function DashboardContent() {
   const numReps = Number(searchParams.get("reps")) || 5;
   const maxVelocity = Number(searchParams.get("maxV")) || 1.0;
   const minVelocity = Number(searchParams.get("minV")) || 0.0;
+  const devicesParam = searchParams.get("devices");
+  const connectedDevices = devicesParam
+    ? devicesParam.split(",").map(Number)
+    : [1, 2, 3, 4, 5];
 
   // Mock data for multiple devices
   const devices = [1, 2, 3, 4, 5].map((id) => ({
@@ -47,8 +51,6 @@ function DashboardContent() {
     maxVelocity,
     minVelocity,
   }));
-
-  const connectedDevices = [1, 2, 3, 4, 5];
 
   // Filter devices to only include connected ones
   const filteredDevices = devices.filter((device) =>

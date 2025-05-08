@@ -93,7 +93,9 @@ export default function Home() {
       // =================================================
 
       setIsLoading(true);
-      const path = `/dashboard?exercise=${selectedExercise}&reps=${reps}&maxV=${maxV}&minV=${minV}`;
+      const path = `/dashboard?exercise=${selectedExercise}&reps=${reps}&maxV=${maxV}&minV=${minV}&devices=${data.connected_devices.join(
+        ","
+      )}`;
 
       // Emit session state to sync all clients
       socket?.emit("sessionState", {
