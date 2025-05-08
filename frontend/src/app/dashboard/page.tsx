@@ -48,9 +48,7 @@ function DashboardContent() {
     minVelocity,
   }));
 
-  // Add a mock list of connected devices for testing purposes
-  const connectedDevices = [1, 2, 3, 4, 5]; // Change this array to simulate connected devices
-  // Need to return an array of connected devices from the API call
+  const connectedDevices = [1, 2, 3, 4, 5];
 
   // Filter devices to only include connected ones
   const filteredDevices = devices.filter((device) =>
@@ -288,13 +286,22 @@ function DashboardContent() {
   };
 
   const handleStartWorkout = async () => {
-    // Added async keyword
     if (!isConnected) {
       toast.error("Cannot start workout: Device not connected");
       return;
     }
 
+    // Show the starting toast message first
+    toast.success("Starting workout session");
+    setWorkoutStarted(true);
+
     try {
+      // Emit socket event before API call
+      socket?.emit("sessionState", {
+        page: "dashboard",
+        params: { workoutStarted: "true" },
+      });
+
       const response = await fetch("http://192.168.0.100:8000/do_reps", {
         method: "POST",
         headers: {
@@ -308,22 +315,19 @@ function DashboardContent() {
       const data = await response.json();
 
       if (data.status !== "success") {
-        alert("Failed to start reps: " + data.message);
+        // If the API call fails, revert the workout state and show error
+        setWorkoutStarted(false);
+        toast.error("Failed to start reps: " + data.message);
         console.log("Failure. Not Started");
         return;
       }
 
       console.log("Success. Started reps");
       console.log(data);
-
-      setWorkoutStarted(true);
-      toast.success("Starting workout session");
-      socket?.emit("sessionState", {
-        page: "dashboard",
-        params: { workoutStarted: "true" },
-      });
     } catch (error) {
-      alert("Error connecting to devices. Please try again.");
+      // If there's an error, revert the workout state and show error
+      setWorkoutStarted(false);
+      toast.error("Error connecting to devices. Please try again.");
       console.error("Connection error:", error);
     }
   };
