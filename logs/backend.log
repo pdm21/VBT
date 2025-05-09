@@ -1,1 +1,87 @@
-./launcher.sh: line 98: uvicorn: command not found
+INFO:     Started server process [27538]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     192.168.0.100:57665 - "OPTIONS /connect HTTP/1.1" 200 OK
+Listening for VBT:4
+VBT:4 - connected
+Connected devices: [4]
+INFO:     192.168.0.100:57665 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57712 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:57712 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [4]
+INFO:     192.168.0.100:57712 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57713 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57744 - "OPTIONS /stop HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:57744 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:57713 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:57713 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:57786 - "POST /do_reps HTTP/1.1" 200 OK
+Listening for VBT:2
+VBT:2 - connected
+Connected devices: [2, 4]
+INFO:     192.168.0.100:58322 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:58381 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [2, 4]
+INFO:     192.168.0.100:58381 - "POST /connect HTTP/1.1" 200 OK
+VBT:2 - reps recorded
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:58381 - "POST /do_reps HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:58588 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+VBT:2 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:58527 - "POST /do_reps HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:58651 - "POST /stop HTTP/1.1" 200 OK
+VBT:2 - reps recorded
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:58602 - "POST /do_reps HTTP/1.1" 200 OK
+Connected devices: [2, 4]
+INFO:     192.168.0.100:58710 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:58741 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [2, 4]
+INFO:     192.168.0.100:58741 - "POST /connect HTTP/1.1" 200 OK
+VBT:2 - reps recorded
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:58756 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+VBT:2 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:59011 - "POST /do_reps HTTP/1.1" 200 OK
+Connected devices: [2, 4]
+INFO:     192.168.0.100:59432 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:59475 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [2, 4]
+INFO:     192.168.0.100:59475 - "POST /connect HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+VBT:2 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:59490 - "POST /do_reps HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:59665 - "POST /stop HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+VBT:2 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:59607 - "POST /do_reps HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:59679 - "POST /stop HTTP/1.1" 200 OK
+VBT:2 - reps recorded
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:59607 - "POST /do_reps HTTP/1.1" 200 OK

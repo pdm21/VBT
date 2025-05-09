@@ -208,9 +208,20 @@ function DashboardContent() {
       handleReset();
     });
 
+    // Add listener for workout state changes
+    socket.on(
+      "sessionState",
+      (data: { page: string; params: { workoutStarted: string } }) => {
+        if (data.page === "dashboard" && data.params.workoutStarted) {
+          setWorkoutStarted(data.params.workoutStarted === "true");
+        }
+      }
+    );
+
     return () => {
       socket.off("velocity_update");
       socket.off("reset_request");
+      socket.off("sessionState");
     };
   }, [socket]);
 
@@ -293,17 +304,14 @@ function DashboardContent() {
       return;
     }
 
-    // Show the starting toast message first
-    toast.success("Starting workout session");
     setWorkoutStarted(true);
+    toast.success("Starting workout session");
+    socket?.emit("sessionState", {
+      page: "dashboard",
+      params: { workoutStarted: "true" },
+    });
 
     try {
-      // Emit socket event before API call
-      socket?.emit("sessionState", {
-        page: "dashboard",
-        params: { workoutStarted: "true" },
-      });
-
       const response = await fetch("http://192.168.0.100:8000/do_reps", {
         method: "POST",
         headers: {
@@ -317,17 +325,20 @@ function DashboardContent() {
       const data = await response.json();
 
       if (data.status !== "success") {
-        // If the API call fails, revert the workout state and show error
-        setWorkoutStarted(false);
         toast.error("Failed to start reps: " + data.message);
         console.log("Failure. Not Started");
         return;
+      } else {
+        setWorkoutStarted(false);
+        toast.success("Session completed!");
+        socket?.emit("sessionState", {
+          page: "dashboard",
+          params: { workoutStarted: "false" },
+        });
       }
 
-      console.log("Success. Started reps");
       console.log(data);
     } catch (error) {
-      // If there's an error, revert the workout state and show error
       setWorkoutStarted(false);
       toast.error("Error connecting to devices. Please try again.");
       console.error("Connection error:", error);
@@ -335,6 +346,14 @@ function DashboardContent() {
   };
 
   const handleStopWorkout = async () => {
+    // Only update state and emit event after successful API call
+    setWorkoutStarted(false);
+    toast.success("Workout session stopped");
+    socket?.emit("sessionState", {
+      page: "dashboard",
+      params: { workoutStarted: "false" },
+    });
+
     try {
       const response = await fetch("http://192.168.0.100:8000/stop", {
         method: "POST",
@@ -345,21 +364,15 @@ function DashboardContent() {
 
       const data = await response.json();
       if (data.status !== "success") {
-        alert("Failed to stop reps: " + data.message);
+        toast.error("Failed to stop reps: " + data.message);
         console.log("Failure. Not Stopped");
         return;
       }
+
       console.log("Success. Stopped reps");
       console.log(data);
-
-      setWorkoutStarted(false);
-      toast.success("Workout session stopped");
-      socket?.emit("sessionState", {
-        page: "dashboard",
-        params: { workoutStarted: "false" },
-      });
     } catch (error) {
-      alert("Error connecting to devices. Please try again.");
+      toast.error("Error connecting to devices. Please try again.");
       console.error("Connection error:", error);
     }
   };
