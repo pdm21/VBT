@@ -593,7 +593,7 @@ function DashboardContent() {
           <>
             {/* Device Tabs */}
             <div className={styles.deviceTabs}>
-              {devices.map((device) => (
+              {filteredDevices.map((device) => (
                 <button
                   key={device.id}
                   className={`${styles.deviceTab} ${
