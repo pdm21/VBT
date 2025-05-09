@@ -29,7 +29,7 @@ Route (app)                              Size     First Load JS
 ┌ ○ /                                    3.58 kB         103 kB
 ├ ○ /_not-found                          873 B          88.1 kB
 ├ ƒ /api/initialize-csv                  0 B                0 B
-├ ○ /dashboard                           11.2 kB         111 kB
+├ ○ /dashboard                           11 kB           111 kB
 └ ○ /home                                2.49 kB         102 kB
 + First Load JS shared by all            87.2 kB
   ├ chunks/117-49a6dc114a7a33fd.js       31.6 kB
@@ -52,20 +52,19 @@ To access from other devices on the same network:
 1. Make sure you're connected to the same WiFi network
 2. Open any of the above URLs in your browser
 Arduino port error: Error: No such file or directory, cannot open /dev/tty.usbmodem101
- ○ Compiling / ...
- ✓ Compiled / in 544ms (590 modules)
- GET / 200 in 659ms
-Client connected: t0gqXXHa22y3yzk8AAAC
+ ✓ Compiled / in 490ms (590 modules)
+ GET / 200 in 599ms
+Client connected: DoyyOKTcyUrnc4lFAAAC
  ○ Compiling /dashboard ...
- ✓ Compiled /dashboard in 636ms (636 modules)
- ✓ Compiled /api/initialize-csv in 60ms (382 modules)
- POST /api/initialize-csv 200 in 94ms
- POST /api/initialize-csv 200 in 95ms
+ ✓ Compiled /dashboard in 624ms (636 modules)
+ ✓ Compiled /api/initialize-csv in 85ms (382 modules)
+ POST /api/initialize-csv 200 in 118ms
+ POST /api/initialize-csv 200 in 119ms
  POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 5ms
+ POST /api/initialize-csv 200 in 3ms
+ POST /api/initialize-csv 200 in 3ms
  POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
- POST /api/initialize-csv 200 in 4ms
+ POST /api/initialize-csv 200 in 3ms

@@ -1,16 +1,21 @@
-INFO:     Started server process [28383]
+INFO:     Started server process [29397]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     192.168.0.100:60415 - "OPTIONS /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61087 - "OPTIONS /connect HTTP/1.1" 200 OK
 Listening for VBT:2
 Listening for VBT:4
-VBT:2 - connected
 VBT:4 - connected
+VBT:2 - connected
 Connected devices: [2, 4]
-INFO:     192.168.0.100:60415 - "POST /connect HTTP/1.1" 200 OK
-INFO:     192.168.0.100:60416 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61088 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61088 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
 CSV files cleared.
-INFO:     192.168.0.100:60416 - "POST /clear_csvs HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61088 - "POST /clear_csvs HTTP/1.1" 200 OK
 Connected devices: [2, 4]
-INFO:     192.168.0.100:60416 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61088 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:61089 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+VBT:2 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:61089 - "POST /do_reps HTTP/1.1" 200 OK
