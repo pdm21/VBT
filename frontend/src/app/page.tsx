@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import styles from "./home/Home.module.css";
 import { useSocket } from "./contexts/SocketContext";
 import Image from "next/image";
+import { toast } from "react-hot-toast";
 
 export default function Home() {
   const router = useRouter();
@@ -137,6 +138,39 @@ export default function Home() {
     }
   };
 
+  const handleShutdown = async () => {
+    try {
+      const response = await fetch("http://192.168.0.100:8000/shutdown", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (data.status === "success") {
+        toast.success("System shutting down...");
+        // Show a more prominent message about closing the window
+        setTimeout(() => {
+          toast.error("System has been shut down. Please close this window.", {
+            duration: 10000, // Show for 10 seconds
+            style: {
+              background: "#ef4444",
+              color: "white",
+              fontSize: "16px",
+              padding: "16px",
+            },
+          });
+        }, 2000);
+      } else {
+        toast.error("Failed to shutdown: " + data.message);
+      }
+    } catch (error) {
+      toast.error("Error initiating shutdown");
+      console.error("Shutdown error:", error);
+    }
+  };
+
   return (
     <main className={styles.main}>
       {/* Connection Status */}
@@ -167,6 +201,9 @@ export default function Home() {
           <span className={styles.departmentText}>
             Hamilton College Athletics Department
           </span>
+          <button className={styles.shutdownButton} onClick={handleShutdown}>
+            PO
+          </button>
         </div>
       </header>
       <div className={styles.contentWrapper}>
@@ -193,7 +230,9 @@ export default function Home() {
           <div className={styles.sensorsColumn}>
             <div className={styles.connectCard}>
               <button
-                className={`${styles.connectButton} ${isConnecting ? styles.loading : ""}`}
+                className={`${styles.connectButton} ${
+                  isConnecting ? styles.loading : ""
+                }`}
                 onClick={fetchConnectedDevices}
                 disabled={isConnecting}
               >

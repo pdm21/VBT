@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
 }
 
 /* Header */
@@ -28,7 +28,7 @@
   gap: 10px;
   font-size: 18px;
   font-weight: 600;
-  color: #2563EB;
+  color: #2563eb;
 }
 
 .logoIcon {
@@ -131,7 +131,7 @@
   font-size: 28px;
   font-weight: 700;
   margin-bottom: 8px;
-  color: #2563EB;
+  color: #2563eb;
   text-align: center;
 }
 
@@ -345,15 +345,15 @@
     max-width: 600px;
     margin: 0 auto;
   }
-  
+
   .sensorsColumn {
     order: 2;
   }
-  
+
   .setupColumn {
     order: 1;
   }
-  
+
   .velocityInputs {
     flex-direction: column;
     gap: 12px;
@@ -464,7 +464,7 @@
 .departmentText {
   font-size: 16px;
   font-weight: 500;
-  color: #2563EB;
+  color: #2563eb;
 }
 
 .connectCard {
@@ -540,4 +540,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.shutdownButton {
+  padding: 8px;
+  background-color: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
+.shutdownButton:hover {
+  background-color: #dc2626;
+}
+
+.shutdownIcon {
+  width: 20px;
+  height: 20px;
 }

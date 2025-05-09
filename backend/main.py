@@ -4,6 +4,9 @@ from fastapi import FastAPI
 from device_manager import DV
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+import os
+import signal
+import subprocess
 
 class RepsRequest(BaseModel):
     num_reps: int
@@ -86,5 +89,44 @@ def clear_csvs():
         return {"status": "success", "message": "CSV files cleared."}
     except Exception as e:
         print(f"Error while clearing CSV files: {e}") 
+        return {"status": "error", "message": str(e)}
+
+@app.post("/shutdown")
+def shutdown():
+    try:
+        # Kill processes on ports 3001 and 8000
+        for port in [3001, 8000]:
+            try:
+                # Find process using the port (works on both Unix and Windows)
+                if os.name == 'nt':  # Windows
+                    cmd = f'netstat -ano | findstr :{port}'
+                    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                    if result.stdout:
+                        # Extract PID from the output
+                        pid = result.stdout.strip().split()[-1]
+                        subprocess.run(f'taskkill /F /PID {pid}', shell=True)
+                else:  # Unix/Linux/MacOS
+                    cmd = f"lsof -ti:{port}"
+                    result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+                    if result.stdout:
+                        pid = result.stdout.strip()
+                        os.kill(int(pid), signal.SIGKILL)  # Use SIGKILL instead of SIGTERM
+            except Exception as e:
+                print(f"Error killing process on port {port}: {e}")
+
+        # Disconnect all devices
+        DV.disconnect()
+        
+        # Start a background thread to kill the server after a short delay
+        def delayed_shutdown():
+            import time
+            time.sleep(1)  # Wait 1 second to ensure response is sent
+            os.kill(os.getpid(), signal.SIGKILL)
+        
+        import threading
+        threading.Thread(target=delayed_shutdown, daemon=True).start()
+        
+        return {"status": "success", "message": "System shutdown initiated"}
+    except Exception as e:
         return {"status": "error", "message": str(e)}
 

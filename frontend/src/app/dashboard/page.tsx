@@ -253,6 +253,39 @@ function DashboardContent() {
     }, 1000);
   };
 
+  const handleShutdown = async () => {
+    try {
+      const response = await fetch("http://192.168.0.100:8000/shutdown", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      const data = await response.json();
+      if (data.status === "success") {
+        toast.success("System shutting down...");
+        // Show a more prominent message about closing the window
+        setTimeout(() => {
+          toast.error("System has been shut down. Please close this window.", {
+            duration: 10000, // Show for 10 seconds
+            style: {
+              background: "#ef4444",
+              color: "white",
+              fontSize: "16px",
+              padding: "16px",
+            },
+          });
+        }, 2000);
+      } else {
+        toast.error("Failed to shutdown: " + data.message);
+      }
+    } catch (error) {
+      toast.error("Error initiating shutdown");
+      console.error("Shutdown error:", error);
+    }
+  };
+
   const handleReset = async () => {
     try {
       // Create content with numReps zeros
@@ -454,6 +487,10 @@ function DashboardContent() {
 
           <button className={styles.endSessionButton} onClick={handleBackClick}>
             End Session
+          </button>
+
+          <button className={styles.shutdownButton} onClick={handleShutdown}>
+            PO
           </button>
         </div>
       </header>
