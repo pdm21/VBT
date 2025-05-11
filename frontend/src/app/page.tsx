@@ -202,7 +202,19 @@ export default function Home() {
             Hamilton College Athletics Department
           </span>
           <button className={styles.shutdownButton} onClick={handleShutdown}>
-            PO
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M12 2v10" />
+              <path d="M18.36 6.64A9 9 0 1 1 5.64 6.64" />
+            </svg>
           </button>
         </div>
       </header>
