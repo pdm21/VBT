@@ -95,27 +95,36 @@ def clear_csvs():
 @app.post("/shutdown")
 def shutdown():
     try:
-        # Disconnect all devices
+        # First disconnect all devices
         DV.disconnect()
-        # Kill processes on ports 3001 and 8000
-        for port in [3001, 8000]:
+        
+        # Start a background thread to handle the actual shutdown
+        def delayed_shutdown():
+            import time
+            time.sleep(1)  # Give time for response to be sent
+            
+            # Kill the Node.js server first
             try:
-                # Find process using the port (works on both Unix and Windows)
                 if os.name == 'nt':  # Windows
-                    cmd = f'netstat -ano | findstr :{port}'
+                    cmd = f'netstat -ano | findstr :3001'
                     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
                     if result.stdout:
-                        # Extract PID from the output
                         pid = result.stdout.strip().split()[-1]
                         subprocess.run(f'taskkill /F /PID {pid}', shell=True)
                 else:  # Unix/Linux/MacOS
-                    cmd = f"lsof -ti:{port}"
+                    cmd = f"lsof -ti:3001"
                     result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
                     if result.stdout:
                         pid = result.stdout.strip()
-                        os.kill(int(pid), signal.SIGKILL)  # Use SIGKILL instead of SIGTERM
+                        os.kill(int(pid), signal.SIGKILL)
             except Exception as e:
-                print(f"Error killing process on port {port}: {e}")        
+                print(f"Error killing Node.js server: {e}")
+            
+            # Then kill this process
+            os.kill(os.getpid(), signal.SIGKILL)
+        
+        import threading
+        threading.Thread(target=delayed_shutdown, daemon=True).start()
         
         return {"status": "success", "message": "System shutdown initiated"}
     except Exception as e:

@@ -140,6 +140,9 @@ export default function Home() {
 
   const handleShutdown = async () => {
     try {
+      // First disconnect the socket
+      socket?.disconnect();
+
       const response = await fetch("http://192.168.0.100:8000/shutdown", {
         method: "POST",
         headers: {
@@ -153,7 +156,7 @@ export default function Home() {
         // Show a more prominent message about closing the window
         setTimeout(() => {
           toast.error("System has been shut down. Please close this window.", {
-            duration: 10000, // Show for 10 seconds
+            duration: 10000,
             style: {
               background: "#ef4444",
               color: "white",
