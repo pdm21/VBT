@@ -70,49 +70,60 @@ def connect_to_device(num):
 def worker(num, controller, data):
     try:
         csoc, serv, grav = connect_to_device(num)
+    except:
         data.put(0)
+        print(f'VBT:{num} - failed to connect')
+        return
 
+    try:
+        data.put(0)
         action = 0
         while True:
             if not controller.empty():
                 action = controller.get()
-
+    
             if action > 0:
                 i, is_done, last_rep = 0, False, -1
+                
                 dps = []
-
-                max_vels = np.zeros(action)
+                
+                max_vels = np.zeros((1,action))
                 data.put(max_vels)
-                while controller.empty() and (last_rep < action - 1):
+                while controller.empty() and (last_rep < action-1):
                     acc, t = struct.unpack('fI', csoc.recv(8, socket.MSG_WAITALL))
-                    dps.append((acc - grav, t / 1000.0))
-
+                    dps.append((acc-grav, t / 1000.0))
                     if (i > 300) & (i % 50):
+                        # max_vels, is_done = dps_to_max(dps, action)
                         rep, vel = dps_to_max(dps, action)
                         if rep > last_rep:
-                            max_vels[rep] = vel
+                            max_vels[0, rep] = vel
                             last_rep = rep
-
+                            # data.put(max_vels)
+                            
                     i += 1
-
+                
                 data.put(True)
                 action = 0
                 print(f'VBT:{num} - reps recorded')
-
+    
             if action == -1:
                 csoc.close()
                 serv.close()
                 print(f'VBT:{num} - connection closed')
                 return
-
+                
             time.sleep(0.1)
-            csoc.recv(128, socket.MSG_DONTWAIT)
+            csoc.recv(128) # , socket.MSG_DONTWAIT)
+            
 
     except socket.error as e:
         csoc.close()
         serv.close()
+        print(e)
         print(f'VBT:{num} - closed connection')
         return
+            
+            
 
 def init_connection_thread(num):
     controller = queue.Queue()
