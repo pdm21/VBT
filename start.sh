@@ -6,6 +6,17 @@ IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1)
 # Update config.js with current IP
 sed -i '' "s/serverIp: '.*'/serverIp: '$IP'/" config.js
 
+
+# Make logs
+mkdir -p logs
+
+# === Start Backend ===
+echo "Starting backend on port 8000..."
+cd backend
+uvicorn main:app --host 0.0.0.0 --port 8000 > ../logs/backend.log 2>&1 &
+BACKEND_PID=$!
+cd ..
+
 # Update .env.local with current IP
 echo "NEXT_PUBLIC_SERVER_IP=$IP" > frontend/.env.local
 
@@ -15,8 +26,15 @@ echo "SERVER_URL=http://$IP:3001"
 # Start the server in production mode in the background
 npm run start:prod &
 
-# Wait for server to start (adjust the sleep duration if needed)
-sleep 5
+# Wait for server to be ready
+echo "Waiting for server to be ready..."
+while [ ! -f .server-ready ]; do
+    sleep 1
+done
+
+# Clean up the ready signal file
+rm .server-ready
 
 # Open the browser (this will be handled by Automator)
 echo "Server is ready!"
+open "http://$IP:3001"

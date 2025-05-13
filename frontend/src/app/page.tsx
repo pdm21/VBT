@@ -113,7 +113,6 @@ export default function Home() {
       }
 
       // =================================================
-
       setIsLoading(true);
       const path = `/dashboard?exercise=${selectedExercise}&reps=${reps}&maxV=${maxV}&minV=${minV}&devices=${data.connected_devices.join(
         ","
@@ -127,6 +126,7 @@ export default function Home() {
           reps,
           maxV,
           minV,
+          devices: data.connected_devices.join(","),
         },
       });
 
