@@ -3,9 +3,18 @@
 # Get the Mac's IP address
 IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1)
 
+# Kill any process using port 3001
+echo "Checking for existing processes on port 3001..."
+PID=$(lsof -n -i :3001 | awk 'NR>1 {print $2}' | uniq)
+if [ -n "$PID" ]; then
+    echo "Killing process on port 3001 (PID: $PID)..."
+    kill -9 $PID
+else
+    echo "No existing process on port 3001."
+fi
+
 # Update config.js with current IP
 sed -i '' "s/serverIp: '.*'/serverIp: '$IP'/" config.js
-
 
 # Make logs
 mkdir -p logs
