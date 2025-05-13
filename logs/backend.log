@@ -1,0 +1,83 @@
+INFO:     Started server process [30237]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+Listening for VBT:3
+VBT:3 - connected
+Connected devices: [3]
+INFO:     192.168.0.100:53495 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:53496 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [3]
+INFO:     192.168.0.100:53496 - "POST /connect HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53512 - "POST /shutdown HTTP/1.1" 200 OK
+VBT:3 - connection closed
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53536 - "POST /shutdown HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53549 - "POST /shutdown HTTP/1.1" 200 OK
+Listening for VBT:3
+VBT:3 - connected
+Connected devices: [3]
+INFO:     192.168.0.100:53549 - "POST /connect HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53738 - "POST /shutdown HTTP/1.1" 200 OK
+VBT:3 - connection closed
+CSV files cleared.
+INFO:     192.168.0.100:53767 - "POST /clear_csvs HTTP/1.1" 200 OK
+Listening for VBT:3
+CSV files cleared.
+INFO:     192.168.0.100:53772 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [3]
+INFO:     192.168.0.100:53772 - "POST /connect HTTP/1.1" 200 OK
+VBT:3 - connected
+Connected devices: [3]
+INFO:     192.168.0.100:53767 - "POST /connect HTTP/1.1" 200 OK
+Connected devices: [3]
+INFO:     192.168.0.100:53808 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:53808 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [3]
+INFO:     192.168.0.100:53808 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:53908 - "OPTIONS /stop HTTP/1.1" 200 OK
+Workout stopped.
+INFO:     192.168.0.100:53908 - "POST /stop HTTP/1.1" 200 OK
+VBT:3 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:53874 - "POST /do_reps HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+VBT:3 - connection closed
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53931 - "POST /shutdown HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53944 - "POST /shutdown HTTP/1.1" 200 OK
+Listening for VBT:3
+VBT:3 - connected
+Connected devices: [3]
+INFO:     192.168.0.100:53945 - "POST /connect HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:53945 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [3]
+INFO:     192.168.0.100:53945 - "POST /connect HTTP/1.1" 200 OK
+Error killing process on port 3001: invalid literal for int() with base 10: '22314\n30378'
+Error killing process on port 8000: invalid literal for int() with base 10: '22314\n30237'
+INFO:     192.168.0.100:53951 - "POST /shutdown HTTP/1.1" 200 OK
+VBT:3 - connection closed
+Workout stopped.
+INFO:     192.168.0.100:54002 - "POST /stop HTTP/1.1" 200 OK
+Workout started with 5 reps.
+INFO:     192.168.0.100:54002 - "POST /do_reps HTTP/1.1" 200 OK
+Workout started with 5 reps.
+INFO:     192.168.0.100:54002 - "POST /do_reps HTTP/1.1" 200 OK
+Workout started with 5 reps.
+INFO:     192.168.0.100:54020 - "POST /do_reps HTTP/1.1" 200 OK
+Listening for VBT:3
+VBT:3 - connected
+Connected devices: [3]
+INFO:     192.168.0.100:54046 - "POST /connect HTTP/1.1" 200 OK

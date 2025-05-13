@@ -95,6 +95,8 @@ def clear_csvs():
 @app.post("/shutdown")
 def shutdown():
     try:
+        # Disconnect all devices
+        DV.disconnect()
         # Kill processes on ports 3001 and 8000
         for port in [3001, 8000]:
             try:
@@ -113,19 +115,7 @@ def shutdown():
                         pid = result.stdout.strip()
                         os.kill(int(pid), signal.SIGKILL)  # Use SIGKILL instead of SIGTERM
             except Exception as e:
-                print(f"Error killing process on port {port}: {e}")
-
-        # Disconnect all devices
-        DV.disconnect()
-        
-        # Start a background thread to kill the server after a short delay
-        def delayed_shutdown():
-            import time
-            time.sleep(1)  # Wait 1 second to ensure response is sent
-            os.kill(os.getpid(), signal.SIGKILL)
-        
-        import threading
-        threading.Thread(target=delayed_shutdown, daemon=True).start()
+                print(f"Error killing process on port {port}: {e}")        
         
         return {"status": "success", "message": "System shutdown initiated"}
     except Exception as e:

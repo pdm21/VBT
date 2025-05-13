@@ -46,4 +46,5 @@ rm .server-ready
 
 # Open the browser (this will be handled by Automator)
 echo "Server is ready!"
-open "http://$IP:3001"
+osascript -e "display notification \"Please open the following link on your ipad: http://$IP:3001\""
+# open "http://$IP:3001"
