@@ -478,7 +478,7 @@ function DashboardContent() {
               }`}
               onClick={() => {
                 setViewMode("single");
-                setSelectedDevice(1);
+                setSelectedDevice(filteredDevices[0].id);
               }}
             >
               Single View
