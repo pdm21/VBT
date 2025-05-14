@@ -4,6 +4,9 @@ frontend/node_modules/
 /.pnp
 .pnp.js
 
+__pycache__/
+*.pyc
+
 # Platform-specific binary files
 *.node
 
