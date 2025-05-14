@@ -13,6 +13,16 @@ else
     echo "No existing process on port 3001."
 fi
 
+# Kill any process using port 8000
+echo "Checking for existing processes on port 8000..."
+PID=$(lsof -n -i :8000 | awk 'NR>1 {print $2}' | uniq)
+if [ -n "$PID" ]; then
+    echo "Killing process on port 8000 (PID: $PID)..."
+    kill -9 $PID
+else
+    echo "No existing process on port 8000."
+fi
+
 # Update config.js with current IP
 sed -i '' "s/serverIp: '.*'/serverIp: '$IP'/" config.js
 

@@ -38,7 +38,7 @@ def find_peaks(vel, nreps):
     if use_peaks < 0:
         return -1, 0
     else:
-        return use_peaks, vel[peak_xs][use_peaks]
+        return use_peaks, vel[peak_xs][:use_peaks+1]
 
 def dps_to_max(dps, nreps):
     vel = filter_data(dps, b, a)
@@ -104,7 +104,7 @@ def worker(num, controller, data):
                         # max_vels, is_done = dps_to_max(dps, action)
                         rep, vel = dps_to_max(dps, action)
                         if rep > last_rep:
-                            max_vels[0, rep] = vel
+                            max_vels[0, rep] = vel[rep]
                             last_rep = rep
                             # data.put(max_vels)
                         
