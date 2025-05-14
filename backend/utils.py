@@ -13,6 +13,8 @@ import threading
 b, a = signal.butter(4, [1/200, 1/20], 'bandpass')
 means = np.array([0.98862311, 1.01106522, 1.01168681, 1.00348977, 1.00572611])
 
+
+
 def filter_data(dps, b, a):
     acc, time_vals = np.array(dps).T
 
@@ -25,6 +27,8 @@ def filter_data(dps, b, a):
     vel = (9.8 * filt_acc[:-100] * dt[:-100]).cumsum()
 
     return vel
+
+
 
 def find_peaks(vel, nreps):
     peak_xs = signal.find_peaks(vel, prominence=0.5)[0]
@@ -49,6 +53,8 @@ def get_online_devices():
     )
     return sorted([int(response[12:13])+1 for response in output.stdout.decode().split('\n')[:-1] if 'timed out' not in response])
 
+
+
 def connect_to_device(num):
     assert(num in [1, 2, 3, 4, 5])
     host = "192.168.0.100"
@@ -66,6 +72,8 @@ def connect_to_device(num):
     print(f"VBT:{num} - connected")
 
     return client_socket, server, means[num - 1]
+
+
 
 def worker(num, controller, data):
     try:
@@ -99,8 +107,16 @@ def worker(num, controller, data):
                             max_vels[0, rep] = vel
                             last_rep = rep
                             # data.put(max_vels)
-                            
+                        
                     i += 1
+
+                start = time.time()
+                while time.time() - start < 3:
+                    acc, t = struct.unpack('fI', csoc.recv(8, socket.MSG_WAITALL))
+                    dps.append((acc-grav, t / 1000.0))
+
+                _, vel = dps_to_max(dps, action)
+                max_vels[0] = vel
                 
                 data.put(True)
                 action = 0
@@ -122,7 +138,6 @@ def worker(num, controller, data):
         print(e)
         print(f'VBT:{num} - closed connection')
         return
-            
             
 
 def init_connection_thread(num):
