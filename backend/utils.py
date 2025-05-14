@@ -13,6 +13,8 @@ import threading
 b, a = signal.butter(4, [1/200, 1/20], 'bandpass')
 means = np.array([0.98862311, 1.01106522, 1.01168681, 1.00348977, 1.00572611])
 
+
+
 def filter_data(dps, b, a):
     acc, time_vals = np.array(dps).T
 
@@ -26,6 +28,8 @@ def filter_data(dps, b, a):
 
     return vel
 
+
+
 def find_peaks(vel, nreps):
     peak_xs = signal.find_peaks(vel, prominence=0.5)[0]
     peak_vels = np.zeros(nreps)
@@ -34,7 +38,7 @@ def find_peaks(vel, nreps):
     if use_peaks < 0:
         return -1, 0
     else:
-        return use_peaks, vel[peak_xs][use_peaks]
+        return use_peaks, vel[peak_xs][:use_peaks+1]
 
 def dps_to_max(dps, nreps):
     vel = filter_data(dps, b, a)
@@ -48,6 +52,8 @@ def get_online_devices():
         capture_output=True,
     )
     return sorted([int(response[12:13])+1 for response in output.stdout.decode().split('\n')[:-1] if 'timed out' not in response])
+
+
 
 def connect_to_device(num):
     assert(num in [1, 2, 3, 4, 5])
@@ -67,52 +73,72 @@ def connect_to_device(num):
 
     return client_socket, server, means[num - 1]
 
+
+
 def worker(num, controller, data):
     try:
         csoc, serv, grav = connect_to_device(num)
+    except:
         data.put(0)
+        print(f'VBT:{num} - failed to connect')
+        return
 
+    try:
+        data.put(0)
         action = 0
         while True:
             if not controller.empty():
                 action = controller.get()
-
+    
             if action > 0:
                 i, is_done, last_rep = 0, False, -1
+                
                 dps = []
-
-                max_vels = np.zeros(action)
+                
+                max_vels = np.zeros((1,action))
                 data.put(max_vels)
-                while controller.empty() and (last_rep < action - 1):
+                while controller.empty() and (last_rep < action-1):
                     acc, t = struct.unpack('fI', csoc.recv(8, socket.MSG_WAITALL))
-                    dps.append((acc - grav, t / 1000.0))
-
+                    dps.append((acc-grav, t / 1000.0))
                     if (i > 300) & (i % 50):
+                        # max_vels, is_done = dps_to_max(dps, action)
                         rep, vel = dps_to_max(dps, action)
                         if rep > last_rep:
-                            max_vels[rep] = vel
+                            max_vels[0, rep] = vel[rep]
                             last_rep = rep
-
+                            # data.put(max_vels)
+                        
                     i += 1
 
+                start = time.time()
+                while time.time() - start < 3:
+                    acc, t = struct.unpack('fI', csoc.recv(8, socket.MSG_WAITALL))
+                    dps.append((acc-grav, t / 1000.0))
+
+                _, vel = dps_to_max(dps, action)
+                max_vels[0] = vel
+                
                 data.put(True)
                 action = 0
                 print(f'VBT:{num} - reps recorded')
-
+    
             if action == -1:
                 csoc.close()
                 serv.close()
                 print(f'VBT:{num} - connection closed')
                 return
-
+                
             time.sleep(0.1)
-            csoc.recv(128, socket.MSG_DONTWAIT)
+            csoc.recv(128) # , socket.MSG_DONTWAIT)
+            
 
     except socket.error as e:
         csoc.close()
         serv.close()
+        print(e)
         print(f'VBT:{num} - closed connection')
         return
+            
 
 def init_connection_thread(num):
     controller = queue.Queue()
