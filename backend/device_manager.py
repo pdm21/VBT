@@ -7,15 +7,22 @@ from utils import (
 )
 import time
 import numpy as np
+import os
 
 class DeviceManager:
-    def __init__(self, file_format='/Users/pmargaronis/Desktop/CS410/Code/VBT/frontend/public/velocity_data_Device{}.csv'):
+    def __init__(self, file_format=None):
+        if file_format is None:
+            # Use relative path from the backend directory
+            file_format = os.path.join('..', 'frontend', 'public', 'velocity_data_Device{}.csv')
         self.threads = {}
         self.conts = {}
         self.datas = {}
         self.last_reps = -1
         self.csv_filepath = file_format
 
+        # Ensure the directory exists
+        os.makedirs(os.path.dirname(self.csv_filepath), exist_ok=True)
+        
         self.clear_csvs()
         self.disconnected = []
             
@@ -91,6 +98,9 @@ class DeviceManager:
 
     # clears the csvs
     def clear_csvs(self, n=0):
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(self.csv_filepath), exist_ok=True)
+        
         if n == 0:
             for i in range(1,6):
                 with open(self.csv_filepath.format(i), "w") as file:

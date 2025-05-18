@@ -8,6 +8,7 @@ import numpy as np
 import scipy.signal as signal
 import queue
 import threading
+import os
 
 # Constants used in signal processing and device connection
 b, a = signal.butter(4, [1/200, 1/20], 'bandpass')
@@ -45,10 +46,14 @@ def dps_to_max(dps, nreps):
     return find_peaks(vel, nreps)
 
 def get_online_devices():
-    # had to specify fping path here
-    # will need to be changed for other systems
+    # Use appropriate fping path based on OS
+    if os.name == 'nt':  # Windows
+        fping_path = 'fping'  # Assuming fping is in PATH
+    else:  # Mac/Linux
+        fping_path = '/opt/homebrew/bin/fping'
+    
     output = subprocess.run(
-        ['/opt/homebrew/bin/fping', '-c', '1', '-t', '250'] + [f'192.168.0.{ip}' for ip in range(150, 155)],
+        [fping_path, '-c', '1', '-t', '250'] + [f'192.168.0.{ip}' for ip in range(150, 155)],
         capture_output=True,
     )
     return sorted([int(response[12:13])+1 for response in output.stdout.decode().split('\n')[:-1] if 'timed out' not in response])
