@@ -17,18 +17,19 @@ const clients = new Map();
 
 // Function to get all non-internal IP addresses
 function getNetworkIPs() {
-  const interfaces = os.networkInterfaces();
-  const addresses = [];
+  // const interfaces = os.networkInterfaces();
+  // const addresses = [];
 
-  for (const iface of Object.values(interfaces)) {
-    for (const addr of iface || []) {
-      if (addr.family === "IPv4" && !addr.internal) {
-        addresses.push(addr.address);
-      }
-    }
-  }
+  // for (const iface of Object.values(interfaces)) {
+  //   for (const addr of iface || []) {
+  //     if (addr.family === "IPv4" && !addr.internal) {
+  //       addresses.push(addr.address);
+  //     }
+  //   }
+  // }
 
-  return addresses;
+  // return addresses;
+  return ["192.168.0.100"];
 }
 
 app.prepare().then(() => {

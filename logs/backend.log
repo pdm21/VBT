@@ -1,145 +1,45 @@
-INFO:     Started server process [52086]
+INFO:     Started server process [30635]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     192.168.0.100:61475 - "OPTIONS /connect HTTP/1.1" 200 OK
-Listening for VBT:4
-VBT:4 - connected
-Connected devices: [4]
-INFO:     192.168.0.100:61476 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:4 - closed connection
+INFO:     192.168.0.100:56057 - "OPTIONS /connect HTTP/1.1" 200 OK
 Connected devices: []
-INFO:     192.168.0.100:61477 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56057 - "POST /connect HTTP/1.1" 200 OK
 Connected devices: []
-INFO:     192.168.0.100:61477 - "POST /connect HTTP/1.1" 200 OK
-Listening for VBT:2
-VBT:2 - connected
-Connected devices: [2]
-INFO:     192.168.0.100:61477 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:2 - closed connection
+INFO:     192.168.0.100:56057 - "POST /connect HTTP/1.1" 200 OK
 Connected devices: []
-INFO:     192.168.0.100:61478 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61478 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56057 - "POST /connect HTTP/1.1" 200 OK
 Listening for VBT:1
 VBT:1 - connected
 Connected devices: [1]
-INFO:     192.168.0.100:61478 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56057 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56057 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:56058 - "POST /clear_csvs HTTP/1.1" 200 OK
+Connected devices: [1]
+INFO:     192.168.0.100:56058 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:56058 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+VBT:1 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:56057 - "POST /do_reps HTTP/1.1" 200 OK
+VBT:1 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:56064 - "POST /do_reps HTTP/1.1" 200 OK
 timed out
 VBT:1 - closed connection
+INFO:     192.168.0.100:57422 - "OPTIONS /connect HTTP/1.1" 200 OK
 Connected devices: []
-INFO:     192.168.0.100:61479 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61480 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61480 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61480 - "POST /connect HTTP/1.1" 200 OK
-Listening for VBT:5
-VBT:5 - connected
-Connected devices: [5]
-INFO:     192.168.0.100:61480 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:5 - closed connection
-Connected devices: []
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: []
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Listening for VBT:3
-VBT:3 - connected
-Connected devices: [3]
-INFO:     192.168.0.100:61481 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [3]
-INFO:     192.168.0.100:61482 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:3 - closed connection
-Listening for VBT:3
-Listening for VBT:1
-VBT:1 - connected
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61491 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61491 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61491 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61492 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61492 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61492 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61501 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61501 - "POST /connect HTTP/1.1" 200 OK
-VBT:3 - connected
-Connected devices: [1, 3]
-Connected devices: [1, 3]
-INFO:     192.168.0.100:61501 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:3 - closed connection
-Connected devices: [1]
-INFO:     192.168.0.100:61501 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1]
-INFO:     192.168.0.100:61501 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1]
-INFO:     192.168.0.100:61503 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [1]
-INFO:     192.168.0.100:61503 - "POST /connect HTTP/1.1" 200 OK
-Listening for VBT:2
-timed out
-VBT:1 - closed connection
-VBT:2 - connected
-Connected devices: [2]
-INFO:     192.168.0.100:61503 - "POST /connect HTTP/1.1" 200 OK
-INFO:     192.168.0.100:61504 - "OPTIONS /connect HTTP/1.1" 200 OK
-Connected devices: [2]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57422 - "POST /connect HTTP/1.1" 200 OK
 Listening for VBT:4
 VBT:4 - connected
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61505 - "POST /connect HTTP/1.1" 200 OK
-Connected devices: [2, 4]
-INFO:     192.168.0.100:61506 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:2 - closed connection
 Connected devices: [4]
-INFO:     192.168.0.100:61506 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57422 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57422 - "OPTIONS /clear_csvs HTTP/1.1" 200 OK
+CSV files cleared.
+INFO:     192.168.0.100:57422 - "POST /clear_csvs HTTP/1.1" 200 OK
 Connected devices: [4]
-INFO:     192.168.0.100:61507 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:4 - closed connection
-Connected devices: []
-INFO:     192.168.0.100:61507 - "POST /connect HTTP/1.1" 200 OK
-Listening for VBT:5
-VBT:5 - connected
-Connected devices: [5]
-INFO:     192.168.0.100:61508 - "POST /connect HTTP/1.1" 200 OK
-timed out
-VBT:5 - closed connection
-Connected devices: []
-INFO:     192.168.0.100:61509 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57422 - "POST /connect HTTP/1.1" 200 OK
+INFO:     192.168.0.100:57430 - "OPTIONS /do_reps HTTP/1.1" 200 OK
+VBT:4 - reps recorded
+Workout started with 5 reps.
+INFO:     192.168.0.100:57431 - "POST /do_reps HTTP/1.1" 200 OK

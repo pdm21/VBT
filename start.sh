@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Get the Mac's IP address
-IP=$(ifconfig | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}' | head -n 1)
+# Set fixed IP address
+IP="192.168.0.100"
 
 # Remove any existing server ready signal file
 rm -f .server-ready

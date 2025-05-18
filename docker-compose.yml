@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  vbt:
+    build: .
+    container_name: vbt
+    network_mode: "host" # This allows the container to use the host's network directly
+    environment:
+      - NODE_ENV=production
+      - HOST_IP=192.168.0.100 # Set the specific IP we want to bind to
+    volumes:
+      - ./logs:/logs
+      - ./frontend/public:/frontend/public
+    # Remove the ports mapping since we're using host network mode
+    # The container will bind directly to the host's network interface
