@@ -38,5 +38,9 @@ RUN mkdir -p /opt/venv && \
 RUN sed -i 's/\r$//' start.sh && \
     chmod +x start.sh
 
-# Set the entrypoint to use the original start.sh
-ENTRYPOINT ["/bin/bash", "./start.sh"] 
+# Create a new script that will keep the container running
+RUN echo '#!/bin/bash\n./start.sh\ntail -f /dev/null' > /app/keep-alive.sh && \
+    chmod +x /app/keep-alive.sh
+
+# Use the keep-alive script
+CMD ["/bin/bash", "/app/keep-alive.sh"] 
