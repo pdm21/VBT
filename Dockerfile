@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     fping \
     iputils-ping \
     net-tools \
+    lsof \
     && rm -rf /var/lib/apt/lists/*
 
 # Set working directory
@@ -37,4 +38,4 @@ RUN mkdir -p /opt/venv && \
 RUN chmod +x start.sh
 
 # Set the entrypoint to use the original start.sh
-ENTRYPOINT ["./start.sh"] 
+ENTRYPOINT ["/bin/bash", "./start.sh"] 
