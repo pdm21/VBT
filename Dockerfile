@@ -34,8 +34,9 @@ RUN mkdir -p /opt/venv && \
     . /opt/venv/bin/activate && \
     pip install -r requirements.txt
 
-# Make start.sh executable
-RUN chmod +x start.sh
+# Make start.sh executable and ensure Unix line endings
+RUN sed -i 's/\r$//' start.sh && \
+    chmod +x start.sh
 
 # Set the entrypoint to use the original start.sh
 ENTRYPOINT ["/bin/bash", "./start.sh"] 
