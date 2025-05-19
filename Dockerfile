@@ -38,8 +38,28 @@ RUN mkdir -p /opt/venv && \
 RUN sed -i 's/\r$//' start.sh && \
     chmod +x start.sh
 
-# Create a new script that will keep the container running
-RUN echo '#!/bin/bash\n./start.sh\ntail -f /dev/null' > /app/keep-alive.sh && \
+# Create a new script that will keep the container running and verify servers
+RUN echo '#!/bin/bash\n\
+echo "=== Starting VBT Application ===\n\
+echo "Current directory: $(pwd)"\n\
+echo "Contents of current directory:"\n\
+ls -la\n\
+echo "\n=== Running start.sh ===\n\
+bash ./start.sh\n\
+echo "\n=== Checking server status ===\n\
+if lsof -i :3001 > /dev/null; then\n\
+    echo "Frontend server is running on port 3001"\n\
+else\n\
+    echo "ERROR: Frontend server is not running on port 3001"\n\
+fi\n\
+if lsof -i :8000 > /dev/null; then\n\
+    echo "Backend server is running on port 8000"\n\
+else\n\
+    echo "ERROR: Backend server is not running on port 8000"\n\
+fi\n\
+echo "\nServers should be accessible at http://192.168.0.100:3001"\n\
+echo "Container will keep running. Press Ctrl+C to stop."\n\
+tail -f /dev/null' > /app/keep-alive.sh && \
     chmod +x /app/keep-alive.sh
 
 # Use the keep-alive script
